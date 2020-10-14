@@ -10,11 +10,13 @@ import Button from "@material-ui/core/Button";
 import Send from "@material-ui/icons/Send";
 import "./RegistrarEmpresa.css";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import axios from 'axios';
 
 ////Vista
 function RegistrarEmpresa() {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [direccion,setDireccion] = useState("")
   const [telefono, setTelefono] = useState();
   const [email, setEmail] = useState();
   const [categorias, setCategorias] = useState([]);
@@ -28,16 +30,73 @@ function RegistrarEmpresa() {
   const [horaAbrir, setHoraAbrir] = useState("07:30");
   const [horaCerrar, setHoraCerrar] = useState("18:30");
   const [imagen, setImagen] = useState();
+  const [pathImage,setPathImage] = useState();
+  const [diasSemana] = useState(['Lu','Ma','Mi','Ju','Vi','Sa','Do']);
 
   const handleChange = (event) => {
     setImagen(URL.createObjectURL(event.target.files[0]));
+    setPathImage(event.target.files[0]);
   };
+
+  const convertirTelefono = (telefono) => {
+    if(telefono===undefined){
+      return 'xxxxxxxxxx';
+    }else{
+      return telefono
+    .replace('-','')
+    .replace('(','')
+    .replace(')','')
+    .replace(' ','');
+    }
+    
+  }
+
+  const horarioFormateado = () => {
+    let horario = horaAbrir+"-"+horaCerrar+". "
+    diasSemana.forEach((dia)=>{
+      dias.forEach((diaSeleccionado)=>{
+        if(diaSeleccionado.indexOf(dia)!==-1){
+          horario+=dia +" ";
+        }
+      });
+    })
+    return horario;
+
+  }
+
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    alert(horarioFormateado());    
+
+    const empresa = {
+      nombre,
+      direccion,
+      email,
+      telefono: convertirTelefono(telefono),
+      descripcion,
+      horario: horarioFormateado(),
+    }
+    alert('HOla mUndo');
+
+    axios.post('http://localhost:5000/api/empresa/',empresa,
+    {headers: {"Access-Control-Allow-Origin": "*"}})
+    .then(response => { 
+      console.log(response)
+    })
+    .catch(error => {
+        alert(error.response)
+    });
+    window.location.href = '/';
+  }
+
 
   return (
     <div>
       <Titulo titulo="Registrar Empresa" />
       <Container maxWidth="md">
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off"  enctype="multipart/form-data"  onSubmit={handleSubmit}>
           {/*Avatar*/}
           <div className="avatarContainer">
             <label for="upload-photo">
@@ -51,7 +110,7 @@ function RegistrarEmpresa() {
             />
           </div>
           <div className="imageContainer">
-            <img src={imagen}/>
+            <img src={imagen} alt=""/>
           </div>
           {/*Nombre de la empresa */}
           <TextField
@@ -60,6 +119,16 @@ function RegistrarEmpresa() {
             value={nombre}
             onChange={(e) => {
               setNombre(e.target.value);
+            }}
+            fullWidth
+          /><br/><br/>
+          {/*Direccion*/}
+          <TextField
+            id="standard-basic"
+            label="Direccion"
+            value={direccion}
+            onChange={(e) => {
+              setDireccion(e.target.value);
             }}
             fullWidth
           />
@@ -117,7 +186,7 @@ function RegistrarEmpresa() {
           {/*<InputImage></InputImage>*/}
           <br />
           {/*Registrar empresa */}
-          <Button variant="contained" color="primary" endIcon={<Send></Send>}>
+          <Button variant="contained" color="primary" type="submit" endIcon={<Send></Send>}>
             Registrar empresa
           </Button>
         </form>
