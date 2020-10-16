@@ -12,19 +12,19 @@ import DescripcionEmpresa from './pages/DescripcionEmpresa/DescripcionEmpresa';
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Switch>
-          <Route path="/empresa/crear">
-            <RegistarEmpresa />
-          </Route>
-          <Route path="/empresa/ver/:id">
-            <DescripcionEmpresa/>
-          </Route>
-          <Route exact path="/">
-            <Inicio/>
-          </Route>
-        </Switch>
-      </div>
+        <div className="App">
+          <Switch>
+            <Route path="/empresa/crear">
+              <RegistarEmpresa />
+            </Route>
+            <Route path="/empresa/ver/:id">
+              <DescripcionEmpresa />
+            </Route>
+            <Route exact path="/">
+              <Inicio />
+            </Route>
+          </Switch>
+        </div>
     </Router>
   );
 }

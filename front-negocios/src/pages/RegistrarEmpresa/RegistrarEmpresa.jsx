@@ -5,7 +5,6 @@ import Container from "@material-ui/core/Container";
 import InputTelefono from "../../components/forms/InputTelefono";
 import CheckCategoria from "../../components/forms/CheckCategoria";
 import InputHorarios from "../../components/forms/InputHorarios";
-//import InputImage from "../../components/forms/InputImage";
 import Button from "@material-ui/core/Button";
 import Send from "@material-ui/icons/Send";
 import "./RegistrarEmpresa.css";
@@ -30,12 +29,13 @@ function RegistrarEmpresa() {
   const [horaAbrir, setHoraAbrir] = useState("07:30");
   const [horaCerrar, setHoraCerrar] = useState("18:30");
   const [imagen, setImagen] = useState();
-  const [pathImage,setPathImage] = useState();
+  //const [pathImage,setPathImage] = useState();
   const [diasSemana] = useState(['Lu','Ma','Mi','Ju','Vi','Sa','Do']);
 
+  
   const handleChange = (event) => {
     setImagen(URL.createObjectURL(event.target.files[0]));
-    setPathImage(event.target.files[0]);
+    //setPathImage(event.target.files[0]);
   };
 
   const convertirTelefono = (telefono) => {

@@ -1,0 +1,35 @@
+.card{
+    margin-left: 50%;
+    margin-right: 50%;  
+}
+.container_description{
+    padding: 20px;
+}
+
+.tipografia {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    font-family: 'Roboto';
+    font-weight: 400;
+}
+
+.contenido{
+    color: #508DAB;
+}
+
+.subtitulo{
+    color: rgb(132, 146, 166);
+}
+
+.imagen {
+    max-width: 100%;
+    min-height: 50%;
+    
+}
+
+
+.favorite_container {
+    border-top: gainsboro .5px solid;
+}

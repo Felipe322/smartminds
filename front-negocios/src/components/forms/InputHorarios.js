@@ -17,10 +17,6 @@ function InputHorarios({dias,setDias,horaAbrir,horaCerrar,setHoraCerrar,setHoraA
     const classes = useStyles();
     const [diasSemana] = useState(['Lu','Ma','Mi','Ju','Vi','Sa','Do']);
 
-    const getHorarioFormateado = () => {
-        return horaAbrir+" "+horaAbrir;
-    }
-
     const handleChange = (e) => {
         let indice = dias.indexOf(e.target.name);
         if(indice===-1){
