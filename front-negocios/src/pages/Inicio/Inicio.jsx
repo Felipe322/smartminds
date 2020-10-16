@@ -3,14 +3,15 @@ import Titulo from "../../components/Titulo";
 import "./Inicio.css";
 import Tarjeta from "./Tarjeta";
 import axios from "axios";
-
-export default function RecipeReviewCard() {
+import { Link } from "react-router-dom";
+import Button from '@material-ui/core/Button'
+export default function RecipeReviewCard({ ruta }) {
   const [listaEmpresas, setListaEmpresas] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get("http://localhost:5000/api/empresa/")
+        .get(ruta + "api/empresa/")
         .then((res) => {
           console.log(res.data);
           setListaEmpresas(res.data);
@@ -20,15 +21,20 @@ export default function RecipeReviewCard() {
         });
     }
     fetchData();
-  },[]);
+  }, []);
 
   return (
     <>
       <Titulo titulo="Inicio" />
       <div className="contenedorCards">
-        {listaEmpresas.map((empresa)=>
-          <Tarjeta empresa={empresa}>Empresa</Tarjeta>
-        )}
+        <Button variant="outlined" color="primary" onClick={()=>{window.location.href = '/empresa/crear';}}>
+          Registrar empresa
+        </Button>
+        {listaEmpresas.map((empresa) => (
+          <Link to={`/empresa/ver/` + empresa.id_empresa}>
+            <Tarjeta empresa={empresa}>Empresa</Tarjeta>
+          </Link>
+        ))}
       </div>
     </>
   );

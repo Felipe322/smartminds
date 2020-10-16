@@ -12,7 +12,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import axios from 'axios';
 
 ////Vista
-function RegistrarEmpresa() {
+function RegistrarEmpresa({ruta}) {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [direccion,setDireccion] = useState("")
@@ -80,15 +80,18 @@ function RegistrarEmpresa() {
     }
     alert('HOla mUndo');
 
-    axios.post('http://localhost:5000/api/empresa/',empresa,
+    axios.post(ruta+'api/empresa/',empresa,
     {headers: {"Access-Control-Allow-Origin": "*"}})
     .then(response => { 
       console.log(response)
+      window.location.href = '/';
     })
     .catch(error => {
         alert(error.response)
+        window.location.href = '/';
     });
-    window.location.href = '/';
+    
+    
   }
 
 

@@ -5,14 +5,14 @@ import axios from 'axios';
 import {useParams} from "react-router-dom";
 
 
-function DescripcionEmpresa() {
+function DescripcionEmpresa({ruta}) {
   const [empresa, setEmpresa] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     async function fetchData() {
       await axios
-        .get("http://localhost:5000/api/empresa/"+id)
+        .get(ruta+"api/empresa/"+id)
         .then((res) => {
           console.log(res.data[0].nombre);
           setEmpresa(res.data[0]);
