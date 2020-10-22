@@ -5,3 +5,19 @@
 .contenedorCards {
     padding: 30px;
 }
+
+.sombraCards {
+    width: 1000px;
+    height: 350px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.favorito {
+    border-top: .5px solid gainsboro;
+}
+
+a {
+    text-decoration: none;
+}
+

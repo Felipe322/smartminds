@@ -10,7 +10,7 @@
 /coverage
 
 # production
-/build
+/front-negocios/build
 
 # misc
 .DS_Store
@@ -22,3 +22,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#firebase
+/front-negocios/.firebase
+/front-negocios/firebase.json

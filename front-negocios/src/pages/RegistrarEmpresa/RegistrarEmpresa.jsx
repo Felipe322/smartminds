@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {storage} from '../../firebase/firebase'
 import Titulo from "../../components/Titulo";
 import TextField from "@material-ui/core/TextField/TextField";
 import Container from "@material-ui/core/Container";
@@ -11,8 +12,8 @@ import "./RegistrarEmpresa.css";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import axios from 'axios';
 
-////Vista
 function RegistrarEmpresa({ruta}) {
+  //////////////////////////////////STATE////////////////////////////////////////////////////////////////////
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [direccion,setDireccion] = useState("")
@@ -29,24 +30,20 @@ function RegistrarEmpresa({ruta}) {
   const [horaAbrir, setHoraAbrir] = useState("07:30");
   const [horaCerrar, setHoraCerrar] = useState("18:30");
   const [imagen, setImagen] = useState();
-  //const [pathImage,setPathImage] = useState();
+  const [pathImage,setPathImage] = useState();
   const [diasSemana] = useState(['Lu','Ma','Mi','Ju','Vi','Sa','Do']);
 
-  
+  /////////////////////////////////////Funciones//////////////////////////////////////////////////////
   const handleChange = (event) => {
     setImagen(URL.createObjectURL(event.target.files[0]));
-    //setPathImage(event.target.files[0]);
+    setPathImage(event.target.files[0]);
   };
 
   const convertirTelefono = (telefono) => {
     if(telefono===undefined){
       return 'xxxxxxxxxx';
     }else{
-      return telefono
-    .replace('-','')
-    .replace('(','')
-    .replace(')','')
-    .replace(' ','');
+      return telefono.replace('-','').replace('(','').replace(')','').replace(' ','');
     }
     
   }
@@ -65,10 +62,35 @@ function RegistrarEmpresa({ruta}) {
   }
 
 
+  const uploadImage = async() => {
+    const uploadTask = storage.ref(`perfil/${pathImage.name}`).put(pathImage);
+    let urlImagen = '';
+
+    return new Promise((resolve,reject) => {
+      uploadTask.on(
+        "state_changed",
+        snapshot => {},
+        error => {
+          resolve('sin imagen');
+        },
+        () => {
+          storage
+          .ref("perfil")
+          .child(pathImage.name)
+          .getDownloadURL()
+          .then(url=>{
+            resolve(url);
+          });
+        }
+      );
+    })  
+  }
+
   const handleSubmit = async(e) => {
     e.preventDefault();
-
-    alert(horarioFormateado());    
+    let urlImagen = await uploadImage();
+    console.log(urlImagen)
+  
 
     const empresa = {
       nombre,
@@ -77,8 +99,8 @@ function RegistrarEmpresa({ruta}) {
       telefono: convertirTelefono(telefono),
       descripcion,
       horario: horarioFormateado(),
+      imagen: urlImagen,
     }
-    alert('HOla mUndo');
 
     axios.post(ruta+'api/empresa/',empresa,
     {headers: {"Access-Control-Allow-Origin": "*"}})
@@ -90,11 +112,9 @@ function RegistrarEmpresa({ruta}) {
         alert(error.response)
         window.location.href = '/';
     });
-    
-    
   }
 
-
+////////////////////////////////////////////////Vista/////////////////////////////////////////////////////////////
   return (
     <div>
       <Titulo titulo="Registrar Empresa" />

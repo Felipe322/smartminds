@@ -8,8 +8,9 @@ import './App.css';
 import RegistarEmpresa from './pages/RegistrarEmpresa/RegistrarEmpresa'
 import Inicio from './pages/Inicio/Inicio';
 import DescripcionEmpresa from './pages/DescripcionEmpresa/DescripcionEmpresa';
+require('dotenv').config()
 
-const rutaAPI = 'http://178.128.148.66:5000/'
+const rutaAPI = process.env.API||'http://localhost:5000/'
 
 function App() {
   return (

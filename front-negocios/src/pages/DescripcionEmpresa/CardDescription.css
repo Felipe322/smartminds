@@ -1,3 +1,4 @@
+@import url(//db.onlinewebfonts.com/c/000be6a5acfcd4e4a425e9f1bb6c80f0?family=Google+Sans);
 .card{
     margin-left: 50%;
     margin-right: 50%;  
@@ -11,7 +12,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: left;
-    font-family: 'Roboto';
+    font-family: 'Google Sans';
     font-weight: 400;
 }
 

@@ -34,11 +34,11 @@ function CardDescription({ empresa }) {
     const classes = useStyles();
     return (
         <Container maxWidth="md" className="container_description">
-            <Card className={classes.root + "card"} style={{ backgroundColor: "white" }}>
+            <Card className={classes.root + "card"} style={{ backgroundColor: "white" }} raised>
 
                 <Grid container spacing="2">
                     <Grid item xs={6}>
-                        <img src={image} className="imagen" alt=""></img>
+                        <img src={empresa.imagen||image} className="imagen" alt=""></img>
                     </Grid>
                     <Grid item xs={6}>
                         <br/><br/>

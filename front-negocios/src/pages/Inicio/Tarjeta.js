@@ -25,13 +25,14 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       backgroundColor: pink[500], //Imagen de la base
     },
+    
   })
 );
 
 function Tarjeta({empresa}) {
     const classes = useStyles();
     return (
-        <Card className={classes.root+" sombraCards"}>
+        <Card className={classes.root+" sombraCards"} raised>
           <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar}>
@@ -43,14 +44,14 @@ function Tarjeta({empresa}) {
           />
           <CardMedia
             className={classes.media}
-            image={image}//Imagen de la base
+            image={empresa.imagen||image}//Imagen de la base
           />
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
               {empresa.descripcion}
             </Typography>
           </CardContent>
-          <CardActions disableSpacing>
+          <CardActions disableSpacing className="favorito">
             <IconButton>
               <FavoriteIcon color="primary" />
             </IconButton>

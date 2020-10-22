@@ -92,3 +92,5 @@ CREATE TABLE IMAGEN(
 	PRIMARY KEY(id_imagen,id_empresa),
 	FOREIGN KEY(id_empresa) REFERENCES EMPRESA(id_empresa)
 );
+
+ALTER TABLE EMPRESA MODIFY imagen VARCHAR(255);
