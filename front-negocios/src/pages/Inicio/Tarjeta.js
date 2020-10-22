@@ -11,6 +11,7 @@ import {pink } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Card from '@material-ui/core/Card/Card'
 import image from '../../images/imagen.png'
+import './Cards.css'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,7 +47,7 @@ function Tarjeta({empresa}) {
             className={classes.media}
             image={empresa.imagen||image}//Imagen de la base
           />
-          <CardContent>
+          <CardContent className="contenido__tarjeta">
             <Typography variant="body2" color="textSecondary" component="p">
               {empresa.descripcion}
             </Typography>

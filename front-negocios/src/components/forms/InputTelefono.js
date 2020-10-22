@@ -48,7 +48,7 @@ function InputTelefono({setTelefono,telefono}) {
                 id="formatted-text-mask-input"
                 inputComponent={TextMaskCustom}
                 value={telefono}
-                onChange = {(e)=>{setTelefono(e.target.value)}}
+                onChange = {(e)=>{setTelefono(e.target.value)}} 
             />
         </FormControl>
     )

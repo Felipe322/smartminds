@@ -30,7 +30,7 @@ function RegistrarEmpresa({ruta}) {
   const [horaAbrir, setHoraAbrir] = useState("07:30");
   const [horaCerrar, setHoraCerrar] = useState("18:30");
   const [imagen, setImagen] = useState();
-  const [pathImage,setPathImage] = useState();
+  const [pathImage,setPathImage] = useState('');
   const [diasSemana] = useState(['Lu','Ma','Mi','Ju','Vi','Sa','Do']);
 
   /////////////////////////////////////Funciones//////////////////////////////////////////////////////
@@ -41,9 +41,9 @@ function RegistrarEmpresa({ruta}) {
 
   const convertirTelefono = (telefono) => {
     if(telefono===undefined){
-      return 'xxxxxxxxxx';
+      return '';
     }else{
-      return telefono.replace('-','').replace('(','').replace(')','').replace(' ','');
+      return telefono.replace('-','').replace('(','').replace(')','').replace(' ','').trim();
     }
     
   }
@@ -88,9 +88,17 @@ function RegistrarEmpresa({ruta}) {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    let urlImagen = await uploadImage();
-    console.log(urlImagen)
-  
+    let urlImagen = ''
+    if(pathImage!==''){
+      urlImagen = await uploadImage();
+    }
+
+    let telefonoFormateado = convertirTelefono(telefono);
+    alert(telefonoFormateado.length);
+    if(telefonoFormateado.localeCompare('')===0 || telefonoFormateado.length<10){
+      alert('Introduce un numero de telefono de 10 digitos');
+      return 
+    }
 
     const empresa = {
       nombre,
@@ -119,7 +127,7 @@ function RegistrarEmpresa({ruta}) {
     <div>
       <Titulo titulo="Registrar Empresa" />
       <Container maxWidth="md">
-        <form noValidate autoComplete="off"  enctype="multipart/form-data"  onSubmit={handleSubmit}>
+        <form autoComplete="off"  enctype="multipart/form-data"  onSubmit={handleSubmit}>
           {/*Avatar*/}
           <div className="avatarContainer">
             <label for="upload-photo">
@@ -144,20 +152,8 @@ function RegistrarEmpresa({ruta}) {
               setNombre(e.target.value);
             }}
             fullWidth
-          /><br/><br/>
-          {/*Direccion*/}
-          <TextField
-            id="standard-basic"
-            label="Direccion"
-            value={direccion}
-            onChange={(e) => {
-              setDireccion(e.target.value);
-            }}
-            fullWidth
-          />
-          <br />
-          <br />
-          {/*Descripcion empresa */}
+            required={true} 
+          /><br/><br/>{/*Descripcion empresa */}
           <TextField
             id="standard-multiline-flexible"
             label="Descripcion empresa"
@@ -168,11 +164,26 @@ function RegistrarEmpresa({ruta}) {
             }}
             rowsMax={4}
             fullWidth
+            required={true}
           />
           <br />
           <br />
+          {/*Direccion*/}
+          <TextField
+            id="standard-basic"
+            label="Direccion"
+            value={direccion}
+            onChange={(e) => {
+              setDireccion(e.target.value);
+            }}
+            fullWidth
+            required={true} 
+          />
+          <br />
+          <br />
+          
           {/*Telefono */}
-          <InputTelefono setTelefono={setTelefono} telefono={telefono} />
+          <InputTelefono setTelefono={setTelefono} telefono={telefono} required={true}/>
           <br />
           <br />
           {/*Email empresa */}
