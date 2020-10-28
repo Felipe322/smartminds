@@ -13,15 +13,9 @@ import RegistrarUsuario from './pages/RegisrarUsuario/RegistrarUsuario';
 import Favoritos from './pages/Favoritos/Favoritos';
 require('dotenv').config()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-const rutaAPI = process.env.API||'http://localhost:5000/'
-=======
-=======
->>>>>>> 52b79ecf6bcc515adcf94cd4ac984b4f9f1249a8
-const rutaAPI = process.env.API||'http://178.128.148.66:5000/'
 
->>>>>>> 52b79ecf6bcc515adcf94cd4ac984b4f9f1249a8
+const rutaAPI = process.env.API||'http://localhost:5000/'
+
 function App() {
   return (
     <Router>
