@@ -13,7 +13,7 @@ import RegistrarUsuario from './pages/RegisrarUsuario/RegistrarUsuario';
 import Favoritos from './pages/Favoritos/Favoritos';
 require('dotenv').config()
 
-const rutaAPI = process.env.API||'http://178.128.148.66:5000/'
+const rutaAPI = process.env.API||'http://127.0.0.1:5000/'
 
 function App() {
   return (
