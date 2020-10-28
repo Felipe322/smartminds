@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Titulo from "../../components/Titulo";
 import "./Inicio.css";
 import Tarjeta from "./Tarjeta";
+import BarraNavegacion from "./BarraNavegacion";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
@@ -51,6 +52,7 @@ export default function RecipeReviewCard({ ruta }) {
           ))}
         </Grid>
       </Container>
+      <BarraNavegacion></BarraNavegacion>
     </>
   );
 }
