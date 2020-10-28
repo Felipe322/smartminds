@@ -14,7 +14,6 @@ import Favoritos from './pages/Favoritos/Favoritos';
 require('dotenv').config()
 
 const rutaAPI = process.env.API||'http://localhost:5000/'
-
 function App() {
   return (
     <Router>
