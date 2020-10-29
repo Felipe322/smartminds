@@ -2,6 +2,6 @@
     padding: 30px;
 }
 
-.contenido__tarjeta{
-    height: 18%;
+.favorito {
+    height: fit-content;
 }

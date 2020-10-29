@@ -14,7 +14,8 @@ import Favoritos from './pages/Favoritos/Favoritos';
 import Buscar from './pages/Buscar/Buscar';
 require('dotenv').config()
 
-const rutaAPI = process.env.API||'http://178.128.148.66:5000/'
+
+const rutaAPI = process.env.API||'http://localhost:5000/'
 
 function App() {
   return (
