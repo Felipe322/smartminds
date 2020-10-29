@@ -3,7 +3,7 @@ import Titulo from "../../components/Titulo";
 import CardDescription from "./CardDescription";
 import axios from 'axios';
 import {useParams} from "react-router-dom";
-
+import BarraNavegacion from "../Inicio/BarraNavegacion.js";
 
 function DescripcionEmpresa({ruta}) {
   const [empresa, setEmpresa] = useState([]);
@@ -28,6 +28,7 @@ function DescripcionEmpresa({ruta}) {
     <div>
       <Titulo titulo="Descripcion Empresa" />
       <CardDescription empresa={empresa}></CardDescription>
+      <BarraNavegacion></BarraNavegacion>
     </div>
   );
 }

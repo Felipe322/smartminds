@@ -11,9 +11,10 @@ import DescripcionEmpresa from './pages/DescripcionEmpresa/DescripcionEmpresa';
 import Login from './pages/Login/Login';
 import RegistrarUsuario from './pages/RegisrarUsuario/RegistrarUsuario';
 import Favoritos from './pages/Favoritos/Favoritos';
+import Buscar from './pages/Buscar/Buscar';
 require('dotenv').config()
 
-const rutaAPI = process.env.API||'http://127.0.0.1:5000/'
+const rutaAPI = process.env.API||'http://178.128.148.66:5000/'
 
 function App() {
   return (
@@ -35,8 +36,11 @@ function App() {
             <Route exact path="/usuario/crear">
               <RegistrarUsuario ruta={rutaAPI}/>
             </Route>
-            <Route path="/favoritos/:id">
+            <Route path="/favoritos">
               <Favoritos ruta={rutaAPI}/> 
+            </Route>
+            <Route path="/buscar">
+              <Buscar ruta={rutaAPI}/>
             </Route>
           </Switch>
         </div>
