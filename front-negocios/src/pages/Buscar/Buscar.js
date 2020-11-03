@@ -44,7 +44,6 @@ function Buscar() {
                 </IconButton>
                 <Divider className={classes.divider} orientation="vertical" />
             </Paper>
-            <BarraNavegacion></BarraNavegacion>
         </div>
 
     )

@@ -12,6 +12,7 @@ import Login from './pages/Login/Login';
 import RegistrarUsuario from './pages/RegisrarUsuario/RegistrarUsuario';
 import Favoritos from './pages/Favoritos/Favoritos';
 import Buscar from './pages/Buscar/Buscar';
+import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion'
 require('dotenv').config()
 
 
@@ -43,8 +44,12 @@ function App() {
             <Route path="/buscar">
               <Buscar ruta={rutaAPI}/>
             </Route>
+            <Route exact path="/empresa/login">
+              <Login></Login>
+            </Route>
           </Switch>
         </div>
+        <BarraNavegacion></BarraNavegacion>
     </Router>
   );
 }

@@ -31,7 +31,7 @@ export default function RecipeReviewCard({ ruta }) {
     <>
       <Titulo titulo="Inicio" />
       <Container maxWidth="md" className="container_description">
-        <Grid container spacing={0} direction="row" justify="space-around">
+        <Grid container direction="row" justify="space-around">
           <Grid item md={12}>
             <Button
               variant="outlined"
@@ -52,7 +52,6 @@ export default function RecipeReviewCard({ ruta }) {
           ))}
         </Grid>
       </Container>
-      <BarraNavegacion></BarraNavegacion>
     </>
   );
 }
