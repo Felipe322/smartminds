@@ -1,17 +1,65 @@
-import { Container } from '@material-ui/core';
-import React from 'react'
+import { Button, Container } from '@material-ui/core';
+import React, { useState,useEffect } from 'react'
 import Titulo from '../../components/Titulo';
-import BarraNavegacion from "../Inicio/BarraNavegacion.js";
 import Grid from "@material-ui/core/Grid";
+import './Favoritos.css'
+import EditSharpIcon from '@material-ui/icons/EditSharp';
+import CardFavoritos from './CardFavoritos';
+import Fab from '@material-ui/core/Fab';
+
+
 
 function Favoritos() {
+    const [inEdit, setInEdit] = useState(false)
+    
+
+    const handleCancel = () => {
+        setInEdit();
+    }
+
     return (
         <>
             <Titulo titulo="Empresas Favoritas"></Titulo>
-            <Grid container>
-                <Grid item><img src="https://firebasestorage.googleapis.com/v0/b/empresas-tsp.appspot.com/o/perfil%2Ffruteria.jpg?alt=media&token=4a884e3f-8b41-43c8-bdff-f2ed7d74af57" alt=""/></Grid>
-            </Grid>
-            <BarraNavegacion></BarraNavegacion>
+            <Container className="contenedor_favoritos">
+                <Grid container spacing={1} justify="space-around">
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                    <CardFavoritos inEdit={inEdit} />
+                </Grid>
+
+
+                <Grid container justify="flex-end" className="boton__eliminar" spacing={2}>
+                    {inEdit && 
+                    <><Grid item>
+                        <Button variant="contained" color="inherit" onClick={handleCancel}>
+                            Cancelar
+                        </Button>
+                    </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="secondary">
+                                Quitar de favoritos
+                            </Button>
+                    </Grid></>}
+                    {!inEdit && <><Grid item>
+                        <Fab color="primary" aria-label="edit" onClick={() => { setInEdit(true) }}>
+                            <EditSharpIcon color="inherit" />
+                        </Fab>
+                    </Grid></>}
+
+                </Grid>
+
+
+            </Container>
+
         </>
     )
 }
