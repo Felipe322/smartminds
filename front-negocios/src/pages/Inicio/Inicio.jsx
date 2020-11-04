@@ -42,6 +42,15 @@ export default function RecipeReviewCard({ ruta }) {
             >
               Registrar empresa
             </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                window.location.href = "/empresa/MisEmpresas";
+              }}
+            >
+              Mis Empresas
+            </Button>
           </Grid>
           {listaEmpresas.map((empresa) => (
             <Grid item md={4}>
