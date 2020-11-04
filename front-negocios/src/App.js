@@ -9,10 +9,11 @@ import RegistarEmpresa from './pages/RegistrarEmpresa/RegistrarEmpresa'
 import Inicio from './pages/Inicio/Inicio';
 import DescripcionEmpresa from './pages/DescripcionEmpresa/DescripcionEmpresa';
 import Login from './pages/Login/Login';
-import RegistrarUsuario from './pages/RegisrarUsuario/RegistrarUsuario';
+//import RegistrarUsuario from './pages/RegisrarUsuario/RegistrarUsuario';
 import Favoritos from './pages/Favoritos/Favoritos';
 import Buscar from './pages/Buscar/Buscar';
-import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion'
+import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion' ;
+import RegistroUsuario from './pages/RegisrarUsuario/RegistroUsuario';
 require('dotenv').config()
 
 
@@ -35,9 +36,9 @@ function App() {
             <Route exact path="/login">
               <Login ruta={rutaAPI}></Login>
             </Route>
-            <Route exact path="/usuario/crear">
+            { /*<Route exact path="/usuario/crear">
               <RegistrarUsuario ruta={rutaAPI}/>
-            </Route>
+             </Route>*/}
             <Route path="/favoritos">
               <Favoritos ruta={rutaAPI}/> 
             </Route>
@@ -46,6 +47,9 @@ function App() {
             </Route>
             <Route exact path="/empresa/login">
               <Login></Login>
+            </Route>
+            <Route exact path="/empresa/RegistroUsuario">
+              <RegistroUsuario ruta ={rutaAPI}></RegistroUsuario>
             </Route>
           </Switch>
         </div>
