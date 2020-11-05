@@ -8,7 +8,6 @@ import CardFavoritos from './CardFavoritos';
 import Fab from '@material-ui/core/Fab';
 
 
-
 function Favoritos() {
     const [inEdit, setInEdit] = useState(false)
     

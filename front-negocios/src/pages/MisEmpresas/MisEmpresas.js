@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -8,6 +8,13 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import Titulo from "../../components/Titulo";
+import { Button, Container } from '@material-ui/core';
+import EditSharpIcon from '@material-ui/icons/EditSharp';
+import Fab from '@material-ui/core/Fab';
+import CardFavoritos from '../Favoritos/CardFavoritos';
+import Grid from "@material-ui/core/Grid";
+import CardEmpresa from  './CardEmpresa';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,50 +24,50 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CheckboxListSecondary() {
+function MisEmpresas() {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([1]);
+  const [inEdit, setInEdit] = useState(false)
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
+  const handleCancel = () => {
+    setInEdit();
+  }
 
   return (
-    <div>
+    <>
         <Titulo titulo="Mis Empresas" />
-        <List dense className={classes.root}>
-        {[0, 1, 2, 3].map((value) => {
-            const labelId = `checkbox-list-secondary-label-${value}`;
-            return (
-            <ListItem key={value} button>
-                <ListItemAvatar>
-                <Avatar
-                    alt={`Avatar n°${value + 1}`}
-                    src={`/static/images/avatar/${value + 1}.jpg`}
-                />
-                </ListItemAvatar>
-                <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                <ListItemSecondaryAction>
-                <Checkbox
-                    edge="end"
-                    onChange={handleToggle(value)}
-                    checked={checked.indexOf(value) !== -1}
-                    inputProps={{ 'aria-labelledby': labelId }}
-                />
-                </ListItemSecondaryAction>
-            </ListItem>
-            );
-        })}
-        </List>
-    </div>
+        <ListItem dense className={classes.root}>
+            <Grid container md={12} spacing={3} justify="space-around" >
+              <CardEmpresa inEdit={inEdit}></CardEmpresa>
+              <CardEmpresa inEdit={inEdit}></CardEmpresa>
+              <CardEmpresa inEdit={inEdit}></CardEmpresa>
+              <CardEmpresa inEdit={inEdit}></CardEmpresa>
+            </Grid>
+        </ListItem>
+        <Grid container justify="flex-end" spacing={2}>
+          {inEdit && 
+          <><Grid item>
+              <Button variant="contained" color="inherit" onClick={handleCancel}>
+                  Cancelar
+              </Button>
+            </Grid>
+              <Grid item>
+                  <Button variant="contained" color="secondary">
+                      Modificar Empresa
+                  </Button>
+              </Grid>
+              <Grid item>
+                  <Button variant="contained" color="secondary">
+                      Eliminar Empresa
+                  </Button>
+          </Grid></>}
+          {!inEdit && <><Grid item>
+              <Fab color="primary" aria-label="edit" onClick={() => { setInEdit(true) }}>
+                  <EditSharpIcon color="inherit" />
+              </Fab>
+          </Grid></>}
+        </Grid>
+    </>
   );
 }
+
+export default MisEmpresas
