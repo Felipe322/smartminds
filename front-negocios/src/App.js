@@ -10,6 +10,8 @@ import Inicio from './pages/Inicio/Inicio';
 import DescripcionEmpresa from './pages/DescripcionEmpresa/DescripcionEmpresa';
 import Login from './pages/Login/Login';
 import Favoritos from './pages/Favoritos/Favoritos';
+import Favoritos2 from './pages/Favoritos/Favoritos2';
+
 import Buscar from './pages/Buscar/Buscar';
 import MisEmpresas from './pages/MisEmpresas/MisEmpresas';
 import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion' ;
@@ -46,12 +48,22 @@ function App() {
             <Route exact path="/login">
               <Login ruta={rutaAPI}></Login>
             </Route>
-            { /*<Route exact path="/usuario/crear">
+             { /*<Route exact path="/usuario/crear">
               <RegistrarUsuario ruta={rutaAPI}/>
              </Route>*/}
+            
+            
             <Route path="/favoritos">
               <Favoritos ruta={rutaAPI} />
             </Route>
+            
+
+             
+            <Route path="/favoritos2">
+              <Favoritos2 ruta={rutaAPI}/> 
+            </Route>
+            
+           
             <Route path="/buscar">
               <Buscar ruta={rutaAPI} />
             </Route>

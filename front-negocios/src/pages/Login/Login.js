@@ -129,7 +129,7 @@ export default function Ingresar() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="./registroUsuario" to={`empresa/registroUsuario`} variant="body2">
+              <Link href="/usuario/crear" to={`/usuario/crear`} variant="body2">
                 {"¿No tienes una cuenta? Registrate"}
               </Link>
             </Grid>

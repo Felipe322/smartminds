@@ -2,7 +2,7 @@ import { Button, Container } from '@material-ui/core';
 import React, { useState,useEffect } from 'react'
 import Titulo from '../../components/Titulo';
 import Grid from "@material-ui/core/Grid";
-import './Favoritos.css'
+
 import EditSharpIcon from '@material-ui/icons/EditSharp';
 import CardFavoritos from './CardFavoritos';
 import Fab from '@material-ui/core/Fab';
@@ -17,7 +17,7 @@ function Favoritos() {
     }
 
     return (
-        <>
+         <>
             <Titulo titulo="Empresas Favoritas"></Titulo>
             <Container className="contenedor_favoritos">
                 <Grid container spacing={1} justify="space-around">

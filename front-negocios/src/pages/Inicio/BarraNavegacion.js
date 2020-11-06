@@ -16,7 +16,7 @@ export default function BarraNav() {
     <div className="barra_nav">
       <BottomNavigation value={value} onChange={handleChange}>
         <BottomNavigationAction label="Home" icon={<HomeRoundedIcon />} onClick={() => {window.location.href = "/";}}/>
-        <BottomNavigationAction label="Favoritos" icon={<FavoriteIcon />} onClick={() => {window.location.href = "/favoritos";}}/>
+        <BottomNavigationAction label="Favoritos" icon={<FavoriteIcon />} onClick={() => {window.location.href = "/favoritos2";}}/>
         <BottomNavigationAction label="Buscar" icon={<SearchRoundedIcon />} onClick={() => {window.location.href = "/buscar";}} />
       </BottomNavigation>
     </div>
