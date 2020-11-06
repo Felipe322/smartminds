@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect,useContext} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,30 +9,40 @@ import RegistarEmpresa from './pages/RegistrarEmpresa/RegistrarEmpresa'
 import Inicio from './pages/Inicio/Inicio';
 import DescripcionEmpresa from './pages/DescripcionEmpresa/DescripcionEmpresa';
 import Login from './pages/Login/Login';
-//import RegistrarUsuario from './pages/RegisrarUsuario/RegistrarUsuario';
 import Favoritos from './pages/Favoritos/Favoritos';
 import Buscar from './pages/Buscar/Buscar';
 import MisEmpresas from './pages/MisEmpresas/MisEmpresas';
 import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion' ;
+import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion';
 import RegistroUsuario from './pages/RegisrarUsuario/RegistroUsuario';
+import UserContext from './context/UserContext'
+
+
 require('dotenv').config()
 
 
-const rutaAPI = process.env.API||'http://127.0.0.1:5000/'
+const rutaAPI = process.env.API || 'http://localhost:5000/'
+
 
 function App() {
+  const {userAuth} = useContext(UserContext);
+
+
+  console.log(userAuth);
+
   return (
-    <Router>
+    
+      <Router>
         <div className="App">
           <Switch>
             <Route path="/empresa/crear" >
-              <RegistarEmpresa ruta={rutaAPI}/>
+              <RegistarEmpresa ruta={rutaAPI} />
             </Route>
             <Route path="/empresa/ver/:id">
-              <DescripcionEmpresa ruta={rutaAPI}/>
+              <DescripcionEmpresa ruta={rutaAPI} />
             </Route>
             <Route exact path="/">
-              <Inicio ruta={rutaAPI}/>
+              <Inicio ruta={rutaAPI} />
             </Route>
             <Route exact path="/login">
               <Login ruta={rutaAPI}></Login>
@@ -41,16 +51,16 @@ function App() {
               <RegistrarUsuario ruta={rutaAPI}/>
              </Route>*/}
             <Route path="/favoritos">
-              <Favoritos ruta={rutaAPI}/> 
+              <Favoritos ruta={rutaAPI} />
             </Route>
             <Route path="/buscar">
-              <Buscar ruta={rutaAPI}/>
+              <Buscar ruta={rutaAPI} />
             </Route>
             <Route exact path="/empresa/login">
               <Login></Login>
             </Route>
-            <Route exact path="/empresa/RegistroUsuario">
-              <RegistroUsuario ruta ={rutaAPI}></RegistroUsuario>
+            <Route exact path="/usuario/crear">
+              <RegistroUsuario ruta={rutaAPI}></RegistroUsuario>
             </Route>
             <Route exact path="/empresa/MisEmpresas">
               <MisEmpresas ruta={rutaAPI}></MisEmpresas>
@@ -58,7 +68,7 @@ function App() {
           </Switch>
         </div>
         <BarraNavegacion></BarraNavegacion>
-    </Router>
+      </Router>
   );
 }
 

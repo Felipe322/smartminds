@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { storage } from "../../firebase/firebase";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Titulo from "../../components/Titulo";
@@ -12,9 +12,12 @@ import Send from "@material-ui/icons/Send";
 import "./RegistrarEmpresa.css";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import axios from "axios";
-
+import ContextUser from "../../context/UserContext";
+import { useContext } from "react";
 
 function RegistrarEmpresa({ ruta }) {
+  ////////////////////////////////CONTEXTO DE SESSION///////////////////////////////////////////////////////
+  const { userAuth, setUserAuth } = useContext(ContextUser);
   //////////////////////////////////STATE////////////////////////////////////////////////////////////////////
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -34,13 +37,11 @@ function RegistrarEmpresa({ ruta }) {
   const [imagen, setImagen] = useState();
   const [pathImage, setPathImage] = useState("");
   const [diasSemana] = useState(["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"]);
-  const [loading,setLoading] = useState(false);
-  const [buttonDisabled,setButtonDisabled] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   ////////Use Effect//////////////////
-  useEffect(() => {
-  }, [loading]);
+  useEffect(() => {}, [loading]);
   /////////////////////////////////////Funciones//////////////////////////////////////////////////////
   const handleChange = (event) => {
     setImagen(URL.createObjectURL(event.target.files[0]));
@@ -99,7 +100,6 @@ function RegistrarEmpresa({ ruta }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
 
     let telefonoFormateado = convertirTelefono(telefono);
     if (
@@ -108,7 +108,7 @@ function RegistrarEmpresa({ ruta }) {
     ) {
       alert("Introduce un numero de telefono de 10 digitos");
       setLoading(false);
-      return;  
+      return;
     }
     let urlImagen = "";
     if (pathImage !== "") {
@@ -130,7 +130,19 @@ function RegistrarEmpresa({ ruta }) {
         headers: { "Access-Control-Allow-Origin": "*" },
       })
       .then((response) => {
-        console.log(response);
+        console.log(userAuth.email);
+
+        const registro_empresa = {
+          "correo" : userAuth.email,
+          "id": response.data.insertId
+        };
+        axios.post(ruta + "api/empresa-usuario/", registro_empresa, {
+        headers: { "Access-Control-Allow-Origin": "*" },
+        }).then((result)=>{
+          alert('Empresa Registrada');
+        }).catch((e)=>{
+          alert('Error');
+        })
         window.location.href = "/";
       })
       .catch((error) => {
@@ -140,130 +152,133 @@ function RegistrarEmpresa({ ruta }) {
   };
 
   ////////////////////////////////////////////////Vista/////////////////////////////////////////////////////////////
-  return (
-    <div>
-      <Titulo titulo="Registrar Empresa" />
-      <Container maxWidth="md">        
-        <form
-          autoComplete="off"
-          enctype="multipart/form-data"
-          onSubmit={handleSubmit}
-        >          
-          
-          {/*Avatar*/}
-          <div className="avatarContainer">
-            <label for="upload-photo">
-              <PhotoCamera />
-            </label>
-            <input
-              type="file"
-              name="photo"
-              id="upload-photo"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="imageContainer">
-            <img src={imagen} alt="" />
-          </div>
-          {/*Nombre de la empresa */}
-          <TextField
-            id="standard-basic"
-            label="Nombre de la empresa"
-            value={nombre}
-            onChange={(e) => {
-              setNombre(e.target.value);
-            }}
-            fullWidth
-            required={true}
-          />
-          <br />
-          <br />
-          {/*Descripcion empresa */}
-          <TextField
-            id="standard-multiline-flexible"
-            label="Descripcion empresa"
-            multiline
-            value={descripcion}
-            onChange={(e) => {
-              setDescripcion(e.target.value);
-            }}
-            rowsMax={4}
-            fullWidth
-            required={true}
-          />
-          <br />
-          <br />
-          {/*Direccion*/}
-          <TextField
-            id="standard-basic"
-            label="Direccion"
-            value={direccion}
-            onChange={(e) => {
-              setDireccion(e.target.value);
-            }}
-            fullWidth
-            required={true}
-          />
-          <br />
-          <br />
 
-          {/*Telefono */}
-          <InputTelefono
-            setTelefono={setTelefono}
-            telefono={telefono}
-            required={true}
-          />
-          <br />
-          <br />
-          {/*Email empresa */}
-          <TextField
-            id="standard-basic"
-            label="Email de la empresa"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            fullWidth
-          />
-          <br />
-          <br />
-          {/*Categoria*/}
-          <CheckCategoria
-            setCategorias={setCategorias}
-            categorias={categorias}
-            listaCategorias={listaCategorias}
-          />
-          <br />
-          {/*Horarios*/}
-          <InputHorarios
-            dias={dias}
-            setDias={setDias}
-            horaAbrir={horaAbrir}
-            horaCerrar={horaCerrar}
-            setHoraCerrar={setHoraCerrar}
-            setHoraAbrir={setHoraAbrir}
-          />
-          <br />
-          <br />
-          {/*Image Upload*/}
-          {/*<InputImage></InputImage>*/}
-          <br />
-          {/*Registrar empresa */}
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            endIcon={<Send></Send>}
-            disabled={loading}
-          >{loading &&
-            <CircularProgress size={20}></CircularProgress>}
-            Registrar empresa
-          </Button>
-      
-        </form>
-      </Container>
-    </div>
-  );
+  if (userAuth) {
+    return (
+      <div>
+        <Titulo titulo="Registrar Empresa" />
+        <Container maxWidth="md">
+          <form
+            autoComplete="off"
+            enctype="multipart/form-data"
+            onSubmit={handleSubmit}
+          >
+            {/*Avatar*/}
+            <div className="avatarContainer">
+              <label for="upload-photo">
+                <PhotoCamera />
+              </label>
+              <input
+                type="file"
+                name="photo"
+                id="upload-photo"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="imageContainer">
+              <img src={imagen} alt="" />
+            </div>
+            {/*Nombre de la empresa */}
+            <TextField
+              id="standard-basic"
+              label="Nombre de la empresa"
+              value={nombre}
+              onChange={(e) => {
+                setNombre(e.target.value);
+              }}
+              fullWidth
+              required={true}
+            />
+            <br />
+            <br />
+            {/*Descripcion empresa */}
+            <TextField
+              id="standard-multiline-flexible"
+              label="Descripcion empresa"
+              multiline
+              value={descripcion}
+              onChange={(e) => {
+                setDescripcion(e.target.value);
+              }}
+              rowsMax={4}
+              fullWidth
+              required={true}
+            />
+            <br />
+            <br />
+            {/*Direccion*/}
+            <TextField
+              id="standard-basic"
+              label="Direccion"
+              value={direccion}
+              onChange={(e) => {
+                setDireccion(e.target.value);
+              }}
+              fullWidth
+              required={true}
+            />
+            <br />
+            <br />
+
+            {/*Telefono */}
+            <InputTelefono
+              setTelefono={setTelefono}
+              telefono={telefono}
+              required={true}
+            />
+            <br />
+            <br />
+            {/*Email empresa */}
+            <TextField
+              id="standard-basic"
+              label="Email de la empresa"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              fullWidth
+            />
+            <br />
+            <br />
+            {/*Categoria*/}
+            <CheckCategoria
+              setCategorias={setCategorias}
+              categorias={categorias}
+              listaCategorias={listaCategorias}
+            />
+            <br />
+            {/*Horarios*/}
+            <InputHorarios
+              dias={dias}
+              setDias={setDias}
+              horaAbrir={horaAbrir}
+              horaCerrar={horaCerrar}
+              setHoraCerrar={setHoraCerrar}
+              setHoraAbrir={setHoraAbrir}
+            />
+            <br />
+            <br />
+            {/*Image Upload*/}
+            {/*<InputImage></InputImage>*/}
+            <br />
+            {/*Registrar empresa */}
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              endIcon={<Send></Send>}
+              disabled={loading}
+            >
+              {loading && <CircularProgress size={20}></CircularProgress>}
+              Registrar empresa
+            </Button>
+          </form>
+        </Container>
+      </div>
+    );
+  }else{
+    return <><Titulo titulo="Registrar Empresa" /><br/><p>Error: Lo sentimos.., no se puede registrar empresas sin hacer login</p></>
+  }
 }
 
 export default RegistrarEmpresa;

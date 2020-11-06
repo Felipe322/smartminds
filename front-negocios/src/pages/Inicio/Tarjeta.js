@@ -1,4 +1,5 @@
-import React from 'react'
+import React,{useContext,useState,useEffect} from 'react'
+import axios from 'axios';
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -7,11 +8,13 @@ import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import {pink } from "@material-ui/core/colors";
+import { pink } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Card from '@material-ui/core/Card/Card'
 import image from '../../images/imagen.png'
-import './Cards.css'
+import { Link } from "react-router-dom";
+import './Cards.css';
+import ContextUser from "../../context/UserContext";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,39 +29,80 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       backgroundColor: pink[500], //Imagen de la base
     },
-    
+
   })
 );
 
-function Tarjeta({empresa}) {
-    const classes = useStyles();
-    return (
-        <Card className={classes.root+" sombraCards"} raised>
-          <CardHeader
-            avatar={
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                T
+
+
+
+function Tarjeta({ empresa, favorito,ruta,recargarFavoritos}) {
+
+  const [isFavorite,setIsFavorite] = useState(favorito);
+
+  const { userAuth, setUserAuth } = useContext(ContextUser);
+
+  useEffect(() => {
+    recargarFavoritos()
+  }, [isFavorite])
+
+  const favoritos =  (e) => {
+    e.preventDefault();
+
+    let favorito_empresa = {
+        "correo" : userAuth.email,
+        "id_empresa": empresa.id_empresa
+    }
+
+    
+    if(favorito){
+      axios.post(ruta + "api/favorito/eliminar/", favorito_empresa, {
+        headers: { "Access-Control-Allow-Origin": "*" },
+        }).then((result)=>{
+        }).catch((e)=>{
+        })
+    }else{
+      
+      axios.post(ruta + "api/favorito",favorito_empresa, {
+        headers: { "Access-Control-Allow-Origin": "*"},
+        }).then((result)=>{
+        }).catch((e)=>{
+        })
+    }
+      setIsFavorite(!isFavorite);
+  
+  }
+  
+  const classes = useStyles();
+  return (
+    <Card className={classes.root + " sombraCards"} raised>
+      <Link to={`/empresa/ver/` + empresa.id_empresa}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              T
               </Avatar>
-            }
-            title={empresa.nombre} //Nombre de la empresa de la base de datos.
-            subheader={empresa.direccion}//Subtitulo de la base de datos.
-          />
-          <CardMedia
-            className={classes.media}
-            image={empresa.imagen||image}//Imagen de la base
-          />
-          <CardContent className="contenido__tarjeta">
-            <Typography variant="body2" color="textSecondary" component="p">
-              {empresa.descripcion}
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing className="favorito">
-            <IconButton>
-              <FavoriteIcon color="primary" />
-            </IconButton>
-          </CardActions>
-        </Card>
-    )
+          }
+          title={empresa.nombre} //Nombre de la empresa de la base de datos.
+          subheader={empresa.direccion}//Subtitulo de la base de datos.
+        />
+        <CardMedia
+          className={classes.media}
+          image={empresa.imagen || image}//Imagen de la base
+        />
+        <CardContent className="contenido__tarjeta">
+          <Typography variant="body2" color="textSecondary" component="p">
+            {empresa.descripcion}
+          </Typography>
+        </CardContent>
+      </Link>
+      <CardActions disableSpacing className="favorito">
+        <IconButton onClick={favoritos}>
+          <FavoriteIcon color={favorito ? "primary" : "inherit"} />
+        </IconButton>
+      </CardActions>
+    </Card>
+  )
 }
 
 export default Tarjeta

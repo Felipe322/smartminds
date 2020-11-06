@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState,useContext} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import UserContext from '../../context/UserContext';
+import {auth} from '../../firebase/firebase.js'
+import { useHistory} from 'react-router-dom';
 
 function Copyright({ruta}) {
   return (
@@ -47,7 +50,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Ingresar() {
+  const history = useHistory()
   const classes = useStyles();
+  
+
+  const [correo,setCorreo] = useState('');
+  const [contraseña,setContraseña] = useState('');
+
+
+  //Login
+  const login = (e) => {
+    e.preventDefault();
+    auth
+    .signInWithEmailAndPassword(correo,contraseña)
+    .then((auth)=>{
+      console.log(auth);
+      history.push('/');
+    })
+    .catch((error) => {
+      alert('Error al ingresar');
+    })
+  }
 
   return (
     <Container component="main" maxWidth="md">
@@ -59,7 +82,7 @@ export default function Ingresar() {
         <Typography component="h1" variant="h5">
           Ingresa
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={login}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -70,6 +93,8 @@ export default function Ingresar() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => {setCorreo(e.target.value)}}
+            value ={correo}
           />
           <TextField
             variant="outlined"
@@ -81,6 +106,8 @@ export default function Ingresar() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => {setContraseña(e.target.value)}}
+            value ={contraseña}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
