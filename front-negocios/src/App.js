@@ -13,7 +13,6 @@ import Favoritos from './pages/Favoritos/Favoritos';
 import Buscar from './pages/Buscar/Buscar';
 import MisEmpresas from './pages/MisEmpresas/MisEmpresas';
 import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion' ;
-import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion';
 import RegistroUsuario from './pages/RegisrarUsuario/RegistroUsuario';
 import UserContext from './context/UserContext'
 
