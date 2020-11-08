@@ -7,7 +7,7 @@ module.exports = app => {
 
 
     app.get('/api/empresa/', (req, res) => {
-        connection.query('SELECT * FROM EMPRESA', (err, result) => {
+        connection.query('SELECT * FROM EMPRESA ORDER BY id_empresa DESC', (err, result) => {
             res.json(result);
         });
     });
@@ -41,8 +41,10 @@ module.exports = app => {
                 });
     });
 
+
+    //insertar una empresa.
     app.post('/api/empresa-usuario/', (req, res) => {
-        let usuario = 'hola';
+        let usuario = '';
         connection.query
             (`SELECT usuario FROM USUARIO WHERE email='${req.body.correo}';
         `,
@@ -67,5 +69,32 @@ module.exports = app => {
                     }
                 });
     })
+
+    app.get('/api/empresa-usuario/:email', (req, res) => {
+        connection.query(`SELECT * FROM EMPRESA WHERE id_empresa in (SELECT id_empresa from REGISTRO_EMPRESA WHERE email ='${req.params.email}')`, (err, result) => {
+            res.json(result);
+        });
+    })
+
+    //eliminar una lista de empresas.
+    app.post('/api/mis_empresas/eliminar_lista/',(req,res) => {
+        connection.query(`DELETE FROM REGISTRO_EMPRESA WHERE id_empresa in (${req.body.lista}) AND email= '${req.body.correo}'`, (err, result) => {
+        });
+        connection.query(`DELETE FROM FAVORITO_EMPRESA WHERE id_empresa in (${req.body.lista})`, (err, result) => {
+        });
+        connection.query(`DELETE FROM EMPRESA WHERE id_empresa in (${req.body.lista})`, (err, result) => {
+            res.json(err);
+        });
+    })
+
+    //modificar una empresa
+    app.post('/api/empresa/modificar/', (req, res) => {
+        const empresa = req.body;
+        
+        connection.query(`UPDATE EMPRESA SET nombre='${empresa.nombre}', direccion='${empresa.direccion}', email='${empresa.email}', telefono=${empresa.telefono}, descripcion='${empresa.descripcion}', horario='${empresa.nombre}' WHERE id_empresa=${empresa.id}`, (err, result) => {
+            res.json(result);
+        });
+    });
+
 
 }

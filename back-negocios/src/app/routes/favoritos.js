@@ -42,4 +42,13 @@ module.exports = app => {
             res.json(result);
         });
     });
+
+
+    //eliminar varias empresas.
+    app.post('/api/favorito/eliminar_lista/', (req, res) => {
+        connection.query(`DELETE FROM FAVORITO_EMPRESA WHERE id_empresa in (${req.body.lista}) AND email= '${req.body.correo}';`  , (err, result) => {
+            console.log(err);
+            res.json(result);
+        });
+    });
 }

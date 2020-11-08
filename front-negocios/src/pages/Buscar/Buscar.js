@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import Titulo from '../../components/Titulo';
 import BarraNavegacion from "../Inicio/BarraNavegacion.js";
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,11 +13,14 @@ import { Link } from "react-router-dom";
 import Tarjeta from "../Inicio/Tarjeta";
 import Container from "@material-ui/core/Container";
 import './Buscar.css'
+import ContextUser from "../../context/UserContext";
 
 
 function Buscar({ ruta }) {
   const [listaEmpresas, setListaEmpresas] = useState([]);
   const [filtro, setFiltro] = useState('');
+  const { userAuth } = useContext(ContextUser);
+  const [listaFavoritos, setListaFavoritos] = useState([]);
 
   useEffect(() => {
     //petición
@@ -40,12 +43,21 @@ function Buscar({ ruta }) {
   }, [filtro]);
 
 
+  const recargarFavoritos = () => {
+    if (userAuth) {
+      axios.get(ruta + "api/favoritos/" + userAuth.email).then((res) => {
+        setListaFavoritos(res.data);
+      });
+    }
+  };
+
+
   return (
     <div>
       <Titulo titulo="Buscar Empresa"></Titulo>
       <Container>
         <Grid container>
-        <Grid item md={2}>
+        <Grid item md={2} className="buscar__container">
             <Paper component="form" className="buscar">
               <IconButton className="buscarIconButton" aria-label="menu"/>
               
@@ -53,7 +65,7 @@ function Buscar({ ruta }) {
               <IconButton type="submit" className="buscarIconButton" aria-label="search">
                 <SearchIcon />
               </IconButton>
-              <Divider className="buscarDivider" orientation="vertical" />
+              
             </Paper>
           </Grid>
         </Grid>
@@ -62,7 +74,11 @@ function Buscar({ ruta }) {
           {listaEmpresas.map((empresa) => (
             <Grid item md={4}>
               <Link to={`/empresa/ver/` + empresa.id_empresa}>
-                <Tarjeta empresa={empresa}>Empresa</Tarjeta>
+                <Tarjeta empresa={empresa} 
+                ruta={ruta} 
+                recargarFavoritos={recargarFavoritos}
+                favorito={listaFavoritos.indexOf(empresa.id_empresa) >= 0}
+                >Empresa</Tarjeta>
               </Link>
             </Grid>
           ))}

@@ -8,13 +8,20 @@
 
 .buscarInput{
     margin-left: 10px;
+    width: 90%;
 }
 
 .buscarIconButton {
     padding: 10;
+    display: flex;
+    align-items: flex-end;
 }
 
 .buscarDivider{
     height: 28;
     margin-left: 4px;
+}
+
+.buscar__container {
+    width: 100%;
 }

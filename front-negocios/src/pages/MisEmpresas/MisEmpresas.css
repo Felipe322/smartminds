@@ -1,0 +1,14 @@
+.misempresas__item {
+    border-bottom: solid .5px gainsboro;
+    margin-top:20px;
+}
+
+.boton__eliminar{
+    width: 90% !important;
+    margin: 10px !important;
+    position: fixed; 
+    bottom: 60px;
+    left: 10px;
+    right: 0;
+    height: 50px;
+}

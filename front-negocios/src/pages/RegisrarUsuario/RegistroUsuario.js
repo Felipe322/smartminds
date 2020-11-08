@@ -21,7 +21,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-        Proyecto Tonatiuh  
+        Proyecto Smartminds   
       {new Date().getFullYear()}
       {'.'}
     </Typography>

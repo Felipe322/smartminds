@@ -17,6 +17,7 @@ import MisEmpresas from './pages/MisEmpresas/MisEmpresas';
 import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion' ;
 import RegistroUsuario from './pages/RegisrarUsuario/RegistroUsuario';
 import UserContext from './context/UserContext'
+import ModificarEmpresa from './pages/ModificarEmpresa/ModificarEmpresa';
 
 
 require('dotenv').config()
@@ -55,26 +56,21 @@ function App() {
             
             <Route path="/favoritos">
               <Favoritos ruta={rutaAPI} />
-            </Route>
-            
-
-             
+            </Route>             
             <Route path="/favoritos2">
               <Favoritos2 ruta={rutaAPI}/> 
             </Route>
-            
-           
             <Route path="/buscar">
               <Buscar ruta={rutaAPI} />
-            </Route>
-            <Route exact path="/empresa/login">
-              <Login></Login>
             </Route>
             <Route exact path="/usuario/crear">
               <RegistroUsuario ruta={rutaAPI}></RegistroUsuario>
             </Route>
             <Route exact path="/empresa/MisEmpresas">
               <MisEmpresas ruta={rutaAPI}></MisEmpresas>
+            </Route>
+            <Route exact path="/empresa/modificar/:id">
+              <ModificarEmpresa ruta={rutaAPI}/>
             </Route>
           </Switch>
         </div>

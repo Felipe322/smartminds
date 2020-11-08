@@ -9,10 +9,10 @@ img {
     width: 300;
     position: sticky; 
     bottom: 60px;
+    top:90%;
     left: 0;
     right: 0;
     height: 50px;
-
 }
 
 .contenedor_favoritos {

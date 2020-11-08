@@ -1,11 +1,11 @@
 .barra_nav {
-    width: 300;
+    width: 100%;
     position: fixed; 
     bottom: 0;
     left: 0;
     right: 0;
     height: 50px;
-
+    border-top: solid 1px gainsboro;
     
 }
 

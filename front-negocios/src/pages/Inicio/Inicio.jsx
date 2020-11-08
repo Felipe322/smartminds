@@ -44,7 +44,7 @@ export default function RecipeReviewCard({ ruta }) {
     <>
       <Titulo titulo="Inicio" />
       <Container maxWidth="md" className="container_description">
-        <Grid container direction="row" justify="space-evenly">
+        <Grid container direction="row" justify="space-around">
           {(() => {
             if (userAuth) {
               return (
@@ -59,37 +59,21 @@ export default function RecipeReviewCard({ ruta }) {
                         auth.signOut();
                       }}
                     >
-                      Log Out
+                      Cerrar Sessión
                     </a>
                   </Grid>
+                  <Grid item>
+                    <a href="/empresa/MisEmpresas">Mis Empresas</a>
+                    </Grid>
                 </>
               );
             } else {
-              return <a href="/Login">Log In</a>;
+              return <a href="/Login">Ingresar</a>;
             }
           })()}
         </Grid>
-        <Grid container direction="row" justify="space-around">
+        <Grid container direction="row" justify="center">
           <Grid item md={12}>
-            {/*<Button
-              variant="outlined"
-              color="primary"
-              onClick={() => {
-                window.location.href = "/empresa/crear";
-              }}
-            >
-              Registrar empresa
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => {
-                window.location.href = "/empresa/MisEmpresas";
-              }}
-            >
-              Mis Empresas
-            </Button>
-            </Button>*/}
           </Grid>
           {listaEmpresas.map((empresa) => (
             <Grid item md={4}>

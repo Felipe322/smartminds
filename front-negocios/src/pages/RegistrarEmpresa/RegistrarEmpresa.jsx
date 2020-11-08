@@ -28,8 +28,8 @@ function RegistrarEmpresa({ ruta }) {
   const [listaCategorias] = useState([
     "Comida",
     "Servicios",
-    "Carros",
-    "Ferreterias",
+    "Productos",
+    "Salud",
   ]);
   const [dias, setDias] = useState([]);
   const [horaAbrir, setHoraAbrir] = useState("07:30");
@@ -194,7 +194,7 @@ function RegistrarEmpresa({ ruta }) {
             {/*Descripcion empresa */}
             <TextField
               id="standard-multiline-flexible"
-              label="Descripcion empresa"
+              label="Descripción empresa"
               multiline
               value={descripcion}
               onChange={(e) => {
@@ -209,7 +209,7 @@ function RegistrarEmpresa({ ruta }) {
             {/*Direccion*/}
             <TextField
               id="standard-basic"
-              label="Direccion"
+              label="Dirección"
               value={direccion}
               onChange={(e) => {
                 setDireccion(e.target.value);

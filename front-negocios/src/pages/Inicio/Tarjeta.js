@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       backgroundColor: pink[500], //Imagen de la base
     },
-
   })
 );
 
@@ -80,7 +79,7 @@ function Tarjeta({ empresa, favorito,ruta,recargarFavoritos}) {
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              T
+              {empresa.nombre.substring(0,1).toUpperCase()}
               </Avatar>
           }
           title={empresa.nombre} //Nombre de la empresa de la base de datos.
@@ -97,9 +96,11 @@ function Tarjeta({ empresa, favorito,ruta,recargarFavoritos}) {
         </CardContent>
       </Link>
       <CardActions disableSpacing className="favorito">
+        {userAuth && 
         <IconButton onClick={favoritos}>
           <FavoriteIcon color={favorito ? "primary" : "inherit"} />
-        </IconButton>
+        </IconButton>}
+        
       </CardActions>
     </Card>
   )

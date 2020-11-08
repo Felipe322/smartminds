@@ -21,7 +21,7 @@ function Copyright({ruta}) {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Proyecto Tonatiuh
+        Proyecto Smartminds
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -89,7 +89,7 @@ export default function Ingresar() {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Correo"
             name="email"
             autoComplete="email"
             autoFocus
@@ -102,7 +102,7 @@ export default function Ingresar() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Contraseña"
             type="password"
             id="password"
             autoComplete="current-password"

@@ -22,7 +22,7 @@ function CheckCategoria({categorias,setCategorias,listaCategorias}) {
     return (
         <div>
             <InputLabel htmlFor="formatted-text-mask-input">
-                Categorias
+                Categorías
             </InputLabel>
             <FormGroup col label="hola">
                 <Grid container spacing={0}>

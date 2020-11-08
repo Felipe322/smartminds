@@ -41,7 +41,7 @@ function InputTelefono({setTelefono,telefono}) {
     return (
         <FormControl fullWidth>
             <InputLabel htmlFor="formatted-text-mask-input">
-                Telefono(10 digitos)
+                Teléfono(10 dígitos)
             </InputLabel>
             <Input
                 name="textmask"

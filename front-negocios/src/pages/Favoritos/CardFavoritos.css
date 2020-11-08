@@ -6,3 +6,12 @@ div .favoritos_nombre{
     text-decoration: none;
     
 }
+
+.favorito_imagen {
+    height: 150px;
+    min-width: 100%;
+}
+
+.image__container {
+    max-width:  100%;
+}

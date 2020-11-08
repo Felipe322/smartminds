@@ -31,7 +31,7 @@ function InputHorarios({dias,setDias,horaAbrir,horaCerrar,setHoraCerrar,setHoraA
     return (
         <div>
             <InputLabel htmlFor="formatted-text-mask-input">
-                Dias de la semana
+                Días de la semana
             </InputLabel>
             <br/>
             <div>
