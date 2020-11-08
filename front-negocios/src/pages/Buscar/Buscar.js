@@ -42,6 +42,11 @@ function Buscar({ ruta }) {
       });
   }, [filtro]);
 
+  useEffect(() => {
+    recargarFavoritos();
+  }, [userAuth]);
+
+
 
   const recargarFavoritos = () => {
     if (userAuth) {
@@ -78,6 +83,8 @@ function Buscar({ ruta }) {
                 ruta={ruta} 
                 recargarFavoritos={recargarFavoritos}
                 favorito={listaFavoritos.indexOf(empresa.id_empresa) >= 0}
+                listaFavoritos={listaFavoritos}
+                setListaFavoritos={setListaFavoritos}
                 >Empresa</Tarjeta>
               </Link>
             </Grid>

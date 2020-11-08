@@ -58,9 +58,9 @@ function CardDescription({ empresa }) {
                     <h3 className="tipografia contenido">{empresa.email}</h3>
                 </CardContent>
                 <CardActions disableSpacing className="favorite_container">
-                    <IconButton>
-                        <FavoriteIcon color="inherit" />
-                    </IconButton>
+                    {<IconButton>
+                        <FavoriteIcon color="disabled" />
+                    </IconButton>}
                 </CardActions>
             </Card>
         </Container>

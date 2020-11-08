@@ -59,7 +59,7 @@ export default function RecipeReviewCard({ ruta }) {
                         auth.signOut();
                       }}
                     >
-                      Cerrar Sessión
+                      Cerrar Sesión
                     </a>
                   </Grid>
                   <Grid item>
@@ -82,6 +82,8 @@ export default function RecipeReviewCard({ ruta }) {
                 favorito={listaFavoritos.indexOf(empresa.id_empresa) >= 0}
                 ruta={ruta}
                 recargarFavoritos={recargarFavoritos}
+                listaFavoritos={listaFavoritos}
+                setListaFavoritos={setListaFavoritos}
               >
                 Empresa
               </Tarjeta>

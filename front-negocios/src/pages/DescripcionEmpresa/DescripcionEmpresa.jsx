@@ -26,7 +26,7 @@ function DescripcionEmpresa({ruta}) {
   
   return (
     <div>
-      <Titulo titulo="Descripcion Empresa" />
+      <Titulo titulo="Descripción Empresa" />
       <CardDescription empresa={empresa}></CardDescription>
       <BarraNavegacion></BarraNavegacion>
     </div>

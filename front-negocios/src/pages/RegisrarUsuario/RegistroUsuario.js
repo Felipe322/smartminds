@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {auth} from '../../firebase/firebase.js'
+import { auth } from '../../firebase/firebase.js'
 import axios from 'axios';
 
 
@@ -21,7 +21,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-        Proyecto Smartminds   
+        Proyecto Smartminds
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', 
+    width: '100%',
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -51,41 +51,45 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Registrar({ruta}) {
+export default function Registrar({ ruta }) {
   const classes = useStyles();
-  const [correo,setCorreo] = useState('');
-  const [contraseña,setContraseña] = useState('');
-  const [usuario,setUsuario] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [contraseña, setContraseña] = useState('');
+  const [usuario, setUsuario] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    auth.createUserWithEmailAndPassword(correo,contraseña)
-    .catch((e) => alert(e.message))
-    .then((e)=>
-    {
-      const user = {
-        usuario,
-        correo,
+    auth.createUserWithEmailAndPassword(correo, contraseña)
+      .catch((e) => {
+        alert(e.message);
+        return;
+      }).then((res) => {
+        const user = {
+          usuario,
+          correo,
+        }
+        if (res) {
+          axios
+            .post(ruta + "api/usuario/", user, {
+              headers: { "Access-Control-Allow-Origin": "*" },
+            })
+            .then((response) => {
+              //Corregir  validacion de correo, modifique el usuario por el correo
+              console.log(response);
+              alert(`Cuenta ${correo} creada`);
+              window.location.href = "/login";
+            })
+            .catch((error) => {
+              alert(error.response);
+              window.location.href = "/";
+            });
+        }
+
       }
-  
-      axios
-        .post(ruta + "api/usuario/", user, {
-          headers: { "Access-Control-Allow-Origin": "*" },
-        })
-        .then((response) => {
-          console.log(response);
-          alert(`Usuario ${usuario} creado`);
-          window.location.href = "/login";
-        })
-        .catch((error) => {
-          alert(error.response);
-          window.location.href = "/";
-        });
-    }
-    );
+      );
 
 
-    
+
   }
 
   return (
@@ -110,7 +114,7 @@ export default function Registrar({ruta}) {
                 name="usuario"
                 autoComplete="usuario"
                 value={usuario}
-                onChange={(e)=>{setUsuario(e.target.value)}}
+                onChange={(e) => { setUsuario(e.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -123,7 +127,7 @@ export default function Registrar({ruta}) {
                 name="email"
                 autoComplete="email"
                 value={correo}
-                onChange={(e)=>{setCorreo(e.target.value)}}
+                onChange={(e) => { setCorreo(e.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -137,7 +141,7 @@ export default function Registrar({ruta}) {
                 id="password"
                 autoComplete="current-password"
                 value={contraseña}
-                onChange={(e)=>{setContraseña(e.target.value)}}
+                onChange={(e) => { setContraseña(e.target.value) }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -158,7 +162,7 @@ export default function Registrar({ruta}) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/empresa/login" variant="body2" to={`/empresa/login`} >
+              <Link href="/Login" variant="body2" to={`/login`} >
                 ¿Ya tienes una cuenta? Ingresar
               </Link>
 

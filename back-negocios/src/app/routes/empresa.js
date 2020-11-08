@@ -36,12 +36,36 @@ module.exports = app => {
                     if (err !== null) {
                         res.json(err);
                     } else {
-                        res.json(result);
+                        let id_empresa_nueva = result.insertId;
+                        console.log(id_empresa_nueva);
+                        connection.query
+                            (`SELECT usuario FROM USUARIO WHERE email='${req.body.email_empresario}';
+        `,
+                                (err, result) => {
+                                    if (err !== null) {
+                                        usuario = ''
+                                        res.json('error');
+                                    } else {
+
+                                        let usuario = result[0]["usuario"];
+                                        connection.query
+                                            (`INSERT INTO REGISTRO_EMPRESA VALUES ('${usuario}','${req.body.email_empresario}',${id_empresa_nueva});`,
+                                                (err, result) => {
+                                                    if (err !== null) {
+                                                        console.log(err)
+                                                        res.json(err);
+                                                    } else {
+                                                        console.log(result)
+                                                        res.json(result);
+                                                    }
+                                                });
+                                    }
+                        });
                     }
                 });
     });
 
-
+/*
     //insertar una empresa.
     app.post('/api/empresa-usuario/', (req, res) => {
         let usuario = '';
@@ -54,7 +78,7 @@ module.exports = app => {
                         usuario = ''
                     } else {
 
-                        usuario = result[0]["usuario"];
+                        let usuario = result[0]["usuario"];
                         connection.query
                             (`INSERT INTO REGISTRO_EMPRESA VALUES ('${usuario}','${req.body.correo}',${req.body.id});`,
                                 (err, result) => {
@@ -69,7 +93,7 @@ module.exports = app => {
                     }
                 });
     })
-
+*/
     app.get('/api/empresa-usuario/:email', (req, res) => {
         connection.query(`SELECT * FROM EMPRESA WHERE id_empresa in (SELECT id_empresa from REGISTRO_EMPRESA WHERE email ='${req.params.email}')`, (err, result) => {
             res.json(result);
@@ -77,7 +101,7 @@ module.exports = app => {
     })
 
     //eliminar una lista de empresas.
-    app.post('/api/mis_empresas/eliminar_lista/',(req,res) => {
+    app.post('/api/mis_empresas/eliminar_lista/', (req, res) => {
         connection.query(`DELETE FROM REGISTRO_EMPRESA WHERE id_empresa in (${req.body.lista}) AND email= '${req.body.correo}'`, (err, result) => {
         });
         connection.query(`DELETE FROM FAVORITO_EMPRESA WHERE id_empresa in (${req.body.lista})`, (err, result) => {
@@ -90,7 +114,7 @@ module.exports = app => {
     //modificar una empresa
     app.post('/api/empresa/modificar/', (req, res) => {
         const empresa = req.body;
-        
+
         connection.query(`UPDATE EMPRESA SET nombre='${empresa.nombre}', direccion='${empresa.direccion}', email='${empresa.email}', telefono=${empresa.telefono}, descripcion='${empresa.descripcion}', horario='${empresa.nombre}' WHERE id_empresa=${empresa.id}`, (err, result) => {
             res.json(result);
         });

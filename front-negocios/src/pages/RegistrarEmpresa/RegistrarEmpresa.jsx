@@ -123,6 +123,7 @@ function RegistrarEmpresa({ ruta }) {
       descripcion,
       horario: horarioFormateado(),
       imagen: urlImagen,
+      email_empresario: userAuth.email
     };
 
     axios
@@ -130,6 +131,7 @@ function RegistrarEmpresa({ ruta }) {
         headers: { "Access-Control-Allow-Origin": "*" },
       })
       .then((response) => {
+        /*
         console.log(userAuth.email);
 
         const registro_empresa = {
@@ -143,6 +145,9 @@ function RegistrarEmpresa({ ruta }) {
         }).catch((e)=>{
           alert('Error');
         })
+        window.location.href = "/";
+        */
+        alert('Empresa Regsitrada');
         window.location.href = "/";
       })
       .catch((error) => {

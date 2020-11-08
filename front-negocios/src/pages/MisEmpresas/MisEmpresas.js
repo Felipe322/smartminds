@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -59,7 +60,6 @@ function MisEmpresas({ ruta }) {
   }
 
   const handleEliminar = () => {
-    alert('hola');
     let data = {
       lista: listaSeleccionada,
       correo: userAuth.email

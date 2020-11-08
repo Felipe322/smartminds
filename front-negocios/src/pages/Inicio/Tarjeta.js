@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-function Tarjeta({ empresa, favorito,ruta,recargarFavoritos}) {
+function Tarjeta({ empresa, favorito,ruta,recargarFavoritos,listaFavoritos,setListaFavoritos}) {
 
   const [isFavorite,setIsFavorite] = useState(favorito);
 
@@ -47,13 +47,19 @@ function Tarjeta({ empresa, favorito,ruta,recargarFavoritos}) {
 
   const favoritos =  (e) => {
     e.preventDefault();
+    let nuevaLista = listaFavoritos.slice();
+    if(listaFavoritos.indexOf(empresa.id_empresa) >= 0){
+      nuevaLista.splice((nuevaLista.indexOf(empresa.id_empresa),1));
+    }else{
+      nuevaLista.push(empresa.id);
+    }
+    setListaFavoritos(nuevaLista);
 
     let favorito_empresa = {
         "correo" : userAuth.email,
         "id_empresa": empresa.id_empresa
     }
-
-    
+ 
     if(favorito){
       axios.post(ruta + "api/favorito/eliminar/", favorito_empresa, {
         headers: { "Access-Control-Allow-Origin": "*" },

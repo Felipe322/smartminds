@@ -20,7 +20,7 @@ function Copyright({ruta}) {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://smartmindstsp.blogspot.com/">
         Proyecto Smartminds
       </Link>{' '}
       {new Date().getFullYear()}

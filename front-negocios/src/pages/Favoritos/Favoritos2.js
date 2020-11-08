@@ -14,7 +14,7 @@ import Fab from '@material-ui/core/Fab';
 import { Button, Container } from '@material-ui/core';
 import Grid from "@material-ui/core/Grid";
 import EditSharpIcon from '@material-ui/icons/EditSharp';
-import './Favoritos2.css'
+import './Favoritos2.css';
 import Titulo from '../../components/Titulo';
 import axios from 'axios';
 import UserContext from "../../context/UserContext";
@@ -36,6 +36,7 @@ export default function TitlebarGridList({ruta}) {
           setListaEmpresas(res.data);
         })
         .catch((error) => {
+
           alert(error);
         });
     }
@@ -73,8 +74,12 @@ export default function TitlebarGridList({ruta}) {
   }
 
   return (
-    <div className='cards' >
+    
+    <div className='cards'>
       <Titulo titulo="Empresas Favoritas"></Titulo>
+      {!userAuth &&
+      <a href="/login"><center className="ref_login">Login</center></a>
+      }
       <GridList cellHeight={180} className='prueba'>
           {listaEmpresas.filter((empresa)=>listaFavoritos.indexOf(empresa.id_empresa)>=0).map((empresa)=>
             <CardFavoritos2 inEdit={inEdit} empresa={empresa} setListaAEliminar={setListaAEliminar} listaAEliminar={listaAEliminar}/>
@@ -94,7 +99,7 @@ export default function TitlebarGridList({ruta}) {
                 Quitar de favoritos
               </Button>
             </Grid></>}
-        {!inEdit && <>
+        {(!inEdit && userAuth) && <>
           <Fab color="primary" aria-label="edit" onClick={() => { setInEdit(true) }}>
             <EditSharpIcon color="inherit" />
           </Fab>
