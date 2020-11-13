@@ -1,27 +1,29 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import Titulo from "../../components/Titulo";
 import "./Inicio.css";
 import Tarjeta from "./Tarjeta";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import UserContext from "../../context/UserContext";
 import { auth } from "../../firebase/firebase";
 
 export default function RecipeReviewCard({ ruta }) {
+  //variables de estado
   const [listaEmpresas, setListaEmpresas] = useState([]);
   const { userAuth } = useContext(UserContext);
   const [listaFavoritos, setListaFavoritos] = useState([]);
 
-  const recargarFavoritos = () => {
+  //funciones y callbacks
+  const recargarFavoritos = useCallback(() => {
     if (userAuth) {
       axios.get(ruta + "api/favoritos/" + userAuth.email).then((res) => {
         setListaFavoritos(res.data);
       });
     }
-  };
+  },[userAuth,ruta]);
 
+  //useEffects
   useEffect(() => {
     async function fetchData() {
       await axios
@@ -34,12 +36,14 @@ export default function RecipeReviewCard({ ruta }) {
         });
     }
     fetchData();
-  }, []);
+  }, [ruta]);
 
   useEffect(() => {
     recargarFavoritos();
-  }, [userAuth]);
+  }, [userAuth,recargarFavoritos]);
 
+
+  //return 
   return (
     <>
       <Titulo titulo="Inicio" />
@@ -54,7 +58,6 @@ export default function RecipeReviewCard({ ruta }) {
                   </Grid>
                   <Grid item>
                     <a
-                      href=""
                       onClick={() => {
                         auth.signOut();
                       }}
@@ -76,7 +79,7 @@ export default function RecipeReviewCard({ ruta }) {
           <Grid item md={12}>
           </Grid>
           {listaEmpresas.map((empresa) => (
-            <Grid item md={4}>
+            <Grid item md={4} key={empresa.id_empresa}>
               <Tarjeta
                 empresa={empresa}
                 favorito={listaFavoritos.indexOf(empresa.id_empresa) >= 0}

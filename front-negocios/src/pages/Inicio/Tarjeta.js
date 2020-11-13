@@ -17,6 +17,7 @@ import './Cards.css';
 import ContextUser from "../../context/UserContext";
 
 
+//estilos
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -37,14 +38,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Tarjeta({ empresa, favorito,ruta,recargarFavoritos,listaFavoritos,setListaFavoritos}) {
 
+  
+
+  //variables de estado y contexto
   const [isFavorite,setIsFavorite] = useState(favorito);
+  const { userAuth } = useContext(ContextUser);
+  const classes = useStyles();
 
-  const { userAuth, setUserAuth } = useContext(ContextUser);
-
-  useEffect(() => {
-    recargarFavoritos()
-  }, [isFavorite])
-
+  //funciones y callbacks
   const favoritos =  (e) => {
     e.preventDefault();
     let nuevaLista = listaFavoritos.slice();
@@ -77,8 +78,12 @@ function Tarjeta({ empresa, favorito,ruta,recargarFavoritos,listaFavoritos,setLi
       setIsFavorite(!isFavorite);
   
   }
-  
-  const classes = useStyles();
+  //useEffects
+  useEffect(() => {
+    recargarFavoritos()
+  }, [isFavorite,recargarFavoritos])
+
+  //render
   return (
     <Card className={classes.root + " sombraCards"} raised>
       <Link to={`/empresa/ver/` + empresa.id_empresa}>
@@ -106,7 +111,6 @@ function Tarjeta({ empresa, favorito,ruta,recargarFavoritos,listaFavoritos,setLi
         <IconButton onClick={favoritos}>
           <FavoriteIcon color={favorito ? "primary" : "inherit"} />
         </IconButton>}
-        
       </CardActions>
     </Card>
   )

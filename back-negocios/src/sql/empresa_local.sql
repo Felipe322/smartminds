@@ -80,7 +80,7 @@ CREATE TABLE CALIFICACION_EMPRESA(
 	id_empresa int,
 	puntuacion int(1),
 	PRIMARY KEY(usuario, email, id_empresa),
-	CONSTRAINT chk_puntuacion CHECK (puntuacion < 5),
+	CONSTRAINT chk_puntuacion CHECK (puntuacion <= 5),
 	FOREIGN KEY(usuario, email) REFERENCES USUARIO(usuario,email),
 	FOREIGN KEY(id_empresa) REFERENCES EMPRESA(id_empresa)
 );
@@ -93,4 +93,28 @@ CREATE TABLE IMAGEN(
 	FOREIGN KEY(id_empresa) REFERENCES EMPRESA(id_empresa)
 );
 
+--cambios
 ALTER TABLE EMPRESA MODIFY imagen VARCHAR(255);
+DROP TABLE COMENTARIO_EMPRESA;
+CREATE TABLE COMENTARIO_EMPRESA(
+	id_comentario int auto_increment,
+	usuario varchar(30),
+	email varchar(40),
+	id_empresa int,
+	contenido varchar(255),
+	PRIMARY KEY(id_comentario),
+	FOREIGN KEY(usuario, email) REFERENCES USUARIO(usuario,email),
+	FOREIGN KEY(id_empresa) REFERENCES EMPRESA(id_empresa)
+);
+
+DROP TABLE CALIFICACION_EMPRESA;
+CREATE TABLE CALIFICACION_EMPRESA(
+	usuario varchar(30),
+	email varchar(40),
+	id_empresa int,
+	puntuacion int(1),
+	PRIMARY KEY(usuario, email, id_empresa),
+	CONSTRAINT chk_puntuacion CHECK (puntuacion <= 5),
+	FOREIGN KEY(usuario, email) REFERENCES USUARIO(usuario,email),
+	FOREIGN KEY(id_empresa) REFERENCES EMPRESA(id_empresa)
+);

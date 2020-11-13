@@ -1,4 +1,4 @@
-import React, {useState,useContext} from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,10 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import UserContext from '../../context/UserContext';
 import {auth} from '../../firebase/firebase.js'
 import { useHistory} from 'react-router-dom';
 
+//funcion.
 function Copyright({ruta}) {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -29,6 +29,7 @@ function Copyright({ruta}) {
   );
 }
 
+//styles
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -50,15 +51,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Ingresar() {
+  //variables
   const history = useHistory()
   const classes = useStyles();
-  
-
   const [correo,setCorreo] = useState('');
   const [contraseña,setContraseña] = useState('');
 
-
-  //Login
+  //funciones y callbacks
   const login = (e) => {
     e.preventDefault();
     auth
@@ -72,6 +71,7 @@ export default function Ingresar() {
     })
   }
 
+  //render
   return (
     <Container component="main" maxWidth="md">
       <CssBaseline />

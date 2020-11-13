@@ -34,3 +34,13 @@
 .favorite_container {
     border-top: gainsboro .5px solid;
 }
+
+.root {
+    max-width: 300 !important;
+}
+
+.media {
+    height: 0;
+    padding-top: "55%";
+    margin: "10%";
+}

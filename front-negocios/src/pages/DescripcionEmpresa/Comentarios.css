@@ -1,0 +1,14 @@
+.contenedor__comentarios{
+    margin-top: 10px;
+}
+
+.container__comentario {
+    padding-top: 10px;
+    
+    border-bottom: .5px solid gainsboro;
+}
+
+.icono__favorito {
+    margin-top: 6px;
+    margin-left: 10px;
+}

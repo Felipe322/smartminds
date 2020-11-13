@@ -1,17 +1,9 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useCallback } from 'react';
 import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import tileData from './tileData';
-import Checkbox from '@material-ui/core/Checkbox';
 import { useEffect, useState,useContext } from 'react'
 import CardFavoritos2 from './CardFavoritos2';
 import Fab from '@material-ui/core/Fab';
-import { Button, Container } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Grid from "@material-ui/core/Grid";
 import EditSharpIcon from '@material-ui/icons/EditSharp';
 import './Favoritos2.css';
@@ -22,40 +14,15 @@ import UserContext from "../../context/UserContext";
 
 
 export default function TitlebarGridList({ruta}) {
+  //variables de estado
   const { userAuth } = useContext(UserContext);
   const [inEdit, setInEdit] = useState(false);
   const [listaEmpresas,setListaEmpresas] = useState([]);
   const [listaFavoritos,setListaFavoritos] = useState([]);
   const [listaAEliminar,setListaAEliminar] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      await axios
-        .get(ruta + "api/empresa/")
-        .then((res) => {
-          setListaEmpresas(res.data);
-        })
-        .catch((error) => {
 
-          alert(error);
-        });
-    }
-    fetchData();
-  },[])
-
-  useEffect(() => {
-    recargarFavoritos();
-  }, [userAuth]);
-
-  const recargarFavoritos = () => {
-    if (userAuth) {
-      axios.get(ruta + "api/favoritos/" + userAuth.email).then((res) => {
-        setListaFavoritos(res.data);
-      });
-    } 
-  };
-  
-
+  //funciones y callbacks
   const handleCancel = () => {
     setInEdit();
   }
@@ -73,6 +40,38 @@ export default function TitlebarGridList({ruta}) {
     recargarFavoritos();
   }
 
+  const recargarFavoritos = useCallback(() => {
+    if (userAuth) {
+      axios.get(ruta + "api/favoritos/" + userAuth.email).then((res) => {
+        setListaFavoritos(res.data);
+      });
+    } 
+  },[ruta,userAuth]);
+
+  //useEffects
+  useEffect(() => {
+    async function fetchData() {
+      await axios
+        .get(ruta + "api/empresa/")
+        .then((res) => {
+          setListaEmpresas(res.data);
+        })
+        .catch((error) => {
+
+          alert(error);
+        });
+    }
+    fetchData();
+  },[ruta])
+
+  useEffect(() => {
+    recargarFavoritos();
+  }, [userAuth,recargarFavoritos]);
+
+  
+  
+
+  //render
   return (
     
     <div className='cards'>
@@ -82,7 +81,7 @@ export default function TitlebarGridList({ruta}) {
       }
       <GridList cellHeight={180} className='prueba'>
           {listaEmpresas.filter((empresa)=>listaFavoritos.indexOf(empresa.id_empresa)>=0).map((empresa)=>
-            <CardFavoritos2 inEdit={inEdit} empresa={empresa} setListaAEliminar={setListaAEliminar} listaAEliminar={listaAEliminar}/>
+            <CardFavoritos2 key={empresa.id_empresa} inEdit={inEdit} empresa={empresa} setListaAEliminar={setListaAEliminar} listaAEliminar={listaAEliminar}/>
           )}
 
       </GridList>
@@ -106,9 +105,6 @@ export default function TitlebarGridList({ruta}) {
         </>}
 
       </Grid>
-
-
-
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, {useEffect,useContext} from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,14 +9,11 @@ import RegistarEmpresa from './pages/RegistrarEmpresa/RegistrarEmpresa'
 import Inicio from './pages/Inicio/Inicio';
 import DescripcionEmpresa from './pages/DescripcionEmpresa/DescripcionEmpresa';
 import Login from './pages/Login/Login';
-import Favoritos from './pages/Favoritos/Favoritos';
 import Favoritos2 from './pages/Favoritos/Favoritos2';
-
 import Buscar from './pages/Buscar/Buscar';
 import MisEmpresas from './pages/MisEmpresas/MisEmpresas';
 import BarraNavegacion from '../src/pages/Inicio/BarraNavegacion' ;
 import RegistroUsuario from './pages/RegisrarUsuario/RegistroUsuario';
-import UserContext from './context/UserContext'
 import ModificarEmpresa from './pages/ModificarEmpresa/ModificarEmpresa';
 
 
@@ -27,10 +24,6 @@ const rutaAPI = process.env.API || 'http://localhost:5000/'
 
 
 function App() {
-  const {userAuth} = useContext(UserContext);
-
-
-  console.log(userAuth);
 
   return (
     
@@ -48,15 +41,7 @@ function App() {
             </Route>
             <Route exact path="/login">
               <Login ruta={rutaAPI}></Login>
-            </Route>
-             { /*<Route exact path="/usuario/crear">
-              <RegistrarUsuario ruta={rutaAPI}/>
-             </Route>*/}
-            
-            
-            <Route path="/favoritos">
-              <Favoritos ruta={rutaAPI} />
-            </Route>             
+            </Route>          
             <Route path="/favoritos2">
               <Favoritos2 ruta={rutaAPI}/> 
             </Route>

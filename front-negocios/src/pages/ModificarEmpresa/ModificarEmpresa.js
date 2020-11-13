@@ -10,7 +10,6 @@ import InputHorarios from "../../components/forms/InputHorarios";
 import Button from "@material-ui/core/Button";
 import Send from "@material-ui/icons/Send";
 import "./RegistrarEmpresa.css";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import axios from "axios";
 import ContextUser from "../../context/UserContext";
 import { useContext } from "react";
@@ -18,7 +17,7 @@ import {useParams} from "react-router-dom";
 
 function ModificarEmpresa({ruta}) {
 ////////////////////////////////CONTEXTO DE SESSION///////////////////////////////////////////////////////
-const { userAuth, setUserAuth } = useContext(ContextUser);
+const { userAuth} = useContext(ContextUser);
 //////////////////////////////////STATE////////////////////////////////////////////////////////////////////
 const [empresa, setEmpresa] = useState([]);
 const { id } = useParams();
@@ -37,11 +36,11 @@ const [listaCategorias] = useState([
 const [dias, setDias] = useState([]);
 const [horaAbrir, setHoraAbrir] = useState("07:30");
 const [horaCerrar, setHoraCerrar] = useState("18:30");
-const [imagen, setImagen] = useState();
-const [pathImage, setPathImage] = useState("");
+const [,setImagen] = useState();
+const [pathImage] = useState("");
 const [diasSemana] = useState(["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"]);
 const [loading, setLoading] = useState(false);
-const [buttonDisabled, setButtonDisabled] = useState(false);
+
 
 ////////Use Effect//////////////////
 useEffect(() => {
@@ -57,7 +56,7 @@ useEffect(() => {
         });   
     }
     fetchData();
-  },[]);
+  },[id,ruta]);
 
 
 useEffect(() => {
@@ -69,10 +68,7 @@ useEffect(() => {
   setImagen(empresa.image);
 },[empresa]);
 /////////////////////////////////////Funciones//////////////////////////////////////////////////////
-const handleChange = (event) => {
-  setImagen(URL.createObjectURL(event.target.files[0]));
-  setPathImage(event.target.files[0]);
-};
+
 
 const convertirTelefono = (telefono) => {
   if (telefono === undefined) {
@@ -101,7 +97,6 @@ const horarioFormateado = () => {
 
 const uploadImage = async () => {
   const uploadTask = storage.ref(`perfil/${pathImage.name}`).put(pathImage);
-  let urlImagen = "";
 
   return new Promise((resolve, reject) => {
     uploadTask.on(

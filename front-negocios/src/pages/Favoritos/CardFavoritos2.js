@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Grid from "@material-ui/core/Grid";
 import Checkbox from '@material-ui/core/Checkbox';
-import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 import './Favoritos2.css'
@@ -11,9 +10,9 @@ import { Link } from "react-router-dom";
 
 
 function CardFavoritos({ inEdit, empresa, setListaAEliminar, listaAEliminar }) {
-
+    //variables de estado.
     const [removeCheck, setRemoveCheck] = useState(false);
-
+    //useEffect
     useEffect(() => {
         if (removeCheck) {
             const lista = listaAEliminar.slice();
@@ -24,12 +23,12 @@ function CardFavoritos({ inEdit, empresa, setListaAEliminar, listaAEliminar }) {
             lista.splice(lista.indexOf(empresa.id_empresa), 1);
             setListaAEliminar(lista);
         }
-    }, [removeCheck])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [removeCheck,empresa.id_empresa]);
 
+    //render
     return (
-        
-            <Grid item xs={6}  >
-
+            <Grid item xs={6}>
                 <>
                     <GridListTile>
                         <  Link to={"/empresa/ver/"+empresa.id_empresa}>
@@ -51,9 +50,7 @@ function CardFavoritos({ inEdit, empresa, setListaAEliminar, listaAEliminar }) {
                         />
                     </GridListTile>
                 </>
-
             </Grid>
-        
     )
 
 }

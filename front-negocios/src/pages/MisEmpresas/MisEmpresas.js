@@ -1,18 +1,9 @@
 
-import React, { useState, useEffect, useContext } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
+import React, { useState, useEffect, useContext, useCallback } from 'react'
 import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Checkbox from '@material-ui/core/Checkbox';
-import Avatar from '@material-ui/core/Avatar';
 import Titulo from "../../components/Titulo";
-import { Button, Container } from '@material-ui/core';
-import EditSharpIcon from '@material-ui/icons/EditSharp';
+import { Button } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
-import CardFavoritos from '../Favoritos/CardFavoritos';
 import Grid from "@material-ui/core/Grid";
 import CardEmpresa from './CardEmpresa';
 import axios from 'axios';
@@ -20,31 +11,18 @@ import UserContext from '../../context/UserContext';
 import DeleteIcon from '@material-ui/icons/Delete';
 import './MisEmpresas.css'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
 function MisEmpresas({ ruta }) {
-  const classes = useStyles();
+  //variables de estado
   const { userAuth } = useContext(UserContext);
   const [inRemove, setInRemove] = useState(false);
-  const [inEdit,setInEdit] = useState(false);
   const [listaMisEmpresas, setListaMisEmpresas] = useState([]);
   const [listaSeleccionada, setListaSeleccionada] = useState([]);
 
-  useEffect(() => {
-    recargarMisEmpresas();
-  }, [userAuth])
-
+  //funciones y callbacks
   const handleCancel = () => {
     setInRemove();
   }
-
-  const recargarMisEmpresas = () => {
+  const recargarMisEmpresas = useCallback(() => {
     if (userAuth) {
       axios
         .get(ruta + `api/empresa-usuario/${userAuth.email}`)
@@ -57,7 +35,8 @@ function MisEmpresas({ ruta }) {
         });
 
     }
-  }
+    
+  },[ruta,userAuth]);
 
   const handleEliminar = () => {
     let data = {
@@ -75,13 +54,21 @@ function MisEmpresas({ ruta }) {
     recargarMisEmpresas();
   }
 
+  //Use Effects
+  useEffect(() => {
+    recargarMisEmpresas();
+  }, [recargarMisEmpresas])
+
+  
+
+  //render
   return (
     <>
       <Titulo titulo="Mis Empresas" />
       
         <Grid container md={12} spacing={0} justify="space-around">
           {listaMisEmpresas.map((empresa) =>
-          <ListItem dense className="misempresas__item">
+          <ListItem dense className="misempresas__item" key={empresa.id_empresa}>
             <CardEmpresa inRemove={inRemove} empresa={empresa} listaSeleccionada={listaSeleccionada} setListaSeleccionada={setListaSeleccionada}></CardEmpresa>
             </ListItem>
           )}

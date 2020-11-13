@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 function InputImage() {
     const classes = useStyles();
-    const [file1,setFile1] = useState()
+    const [file1] = useState()
 
     return (
 

@@ -17,7 +17,7 @@ import { useContext } from "react";
 
 function RegistrarEmpresa({ ruta }) {
   ////////////////////////////////CONTEXTO DE SESSION///////////////////////////////////////////////////////
-  const { userAuth, setUserAuth } = useContext(ContextUser);
+  const {userAuth} = useContext(ContextUser);
   //////////////////////////////////STATE////////////////////////////////////////////////////////////////////
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -38,7 +38,6 @@ function RegistrarEmpresa({ ruta }) {
   const [pathImage, setPathImage] = useState("");
   const [diasSemana] = useState(["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"]);
   const [loading, setLoading] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   ////////Use Effect//////////////////
   useEffect(() => {}, [loading]);
@@ -75,7 +74,6 @@ function RegistrarEmpresa({ ruta }) {
 
   const uploadImage = async () => {
     const uploadTask = storage.ref(`perfil/${pathImage.name}`).put(pathImage);
-    let urlImagen = "";
 
     return new Promise((resolve, reject) => {
       uploadTask.on(
