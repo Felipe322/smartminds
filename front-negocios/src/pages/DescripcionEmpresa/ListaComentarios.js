@@ -23,7 +23,7 @@ function ListaComentarios({ruta}) {
     return (
         <div>
             {listaComentarios.map((comentario) => {
-                return <Comentario usuario={comentario.usuario} contenido={comentario.contenido}/>
+                return <Comentario usuario={comentario.usuario} contenido={comentario.contenido} correo={comentario.correo}/>
             })}
         </div>
     )

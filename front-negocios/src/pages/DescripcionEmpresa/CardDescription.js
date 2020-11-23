@@ -168,12 +168,9 @@ function CardDescription({ ruta, empresa }) {
                                     </Fade>
                                 </Modal>
                             </div>
-
-
                         </Grid>
                     </Grid>
                 </CardActions>
-
             </Card>
         </Container>
     )

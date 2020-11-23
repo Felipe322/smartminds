@@ -30,4 +30,11 @@ module.exports = app => {
             res.json(result);
         });
     });
+
+    //eliminar un comentario
+    app.post('/api/comentrio/eliminar/',(req,res) => {
+        connection.query(`DELETE FROM COMENTARIO_EMPRESA WHERE id_comentario=${req.body.id_comentario} AND email='${req.body.correo}'`,(err,result) => {
+            res.json(result);
+        })
+    })
 }
