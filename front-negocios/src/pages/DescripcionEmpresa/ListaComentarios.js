@@ -18,12 +18,13 @@ function ListaComentarios({ruta}) {
           .catch((error) => {
             alert(error);
           });
+          
     }, [userAuth,id])
 
     return (
         <div>
             {listaComentarios.map((comentario) => {
-                return <Comentario usuario={comentario.usuario} contenido={comentario.contenido} correo={comentario.correo}/>
+                return <Comentario comentario={comentario} userAuth={userAuth} ruta={ruta} id={id}/>
             })}
         </div>
     )
