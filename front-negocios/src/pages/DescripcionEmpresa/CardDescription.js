@@ -97,9 +97,11 @@ function CardDescription({ ruta, empresa }) {
 
         axios.post(ruta + 'api/calificacion/', objeto, (res) => {
             console.log(res);
+        }).then(()=>{
+            window.location.href = "/empresa/ver/" + id;
         })
         handleClose();
-        window.location.href = "/empresa/ver/" + id;
+        
     }
 
 
@@ -132,7 +134,7 @@ function CardDescription({ ruta, empresa }) {
                 <CardActions disableSpacing className="favorite_container">
                     <Grid container>
                         <Grid item xs={7}>
-                            <FavoriteIcon color="disabled" className="icono__favorito" />
+                            {/*<FavoriteIcon color="disabled" className="icono__favorito" />*/}
                         </Grid>
                         <Grid item xs={5}>
                             <div>
@@ -140,6 +142,7 @@ function CardDescription({ ruta, empresa }) {
                                     variant="text"
                                     color="primary"
                                     onClick={handleOpen}
+                                    disabled={userAuth===null}
                                 >
                                     <span role="img" aria-label="start">⭐ Calificar</span>
                                 </Button>

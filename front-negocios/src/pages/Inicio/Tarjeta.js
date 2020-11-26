@@ -65,18 +65,19 @@ function Tarjeta({ empresa, favorito,ruta,recargarFavoritos,listaFavoritos,setLi
       axios.post(ruta + "api/favorito/eliminar/", favorito_empresa, {
         headers: { "Access-Control-Allow-Origin": "*" },
         }).then((result)=>{
+          setIsFavorite(!isFavorite);
+          recargarFavoritos();
         }).catch((e)=>{
         })
     }else{
-      
       axios.post(ruta + "api/favorito",favorito_empresa, {
         headers: { "Access-Control-Allow-Origin": "*"},
         }).then((result)=>{
+          setIsFavorite(!isFavorite);
+          recargarFavoritos();
         }).catch((e)=>{
         })
     }
-      setIsFavorite(!isFavorite);
-  
   }
   //useEffects
   useEffect(() => {

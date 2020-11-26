@@ -106,9 +106,16 @@ module.exports = app => {
         });
         connection.query(`DELETE FROM FAVORITO_EMPRESA WHERE id_empresa in (${req.body.lista})`, (err, result) => {
         });
+        connection.query(`DELETE FROM COMENTARIO_EMPRESA WHERE id_empresa in (${req.body.lista})`, (err, result) => {
+            console.log(err);
+        });
+        connection.query(`DELETE FROM CALIFICACION_EMPRESA WHERE id_empresa in (${req.body.lista})`, (err, result) => {
+            console.log(err);
+        });
         connection.query(`DELETE FROM EMPRESA WHERE id_empresa in (${req.body.lista})`, (err, result) => {
             res.json(err);
         });
+        
     })
 
     //modificar una empresa

@@ -15,9 +15,11 @@ function Comentario({comentario,userAuth,ruta,id}) {
 
         axios.post(ruta + 'api/comentrio/eliminar/', objeto, (res) => {
             console.log(res);
+        }).then(()=>{
+            window.location.href = "/empresa/ver/" + id;
         });
 
-        window.location.href = "/empresa/ver/" + id;
+        
     }
 
     return (

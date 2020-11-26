@@ -48,10 +48,12 @@ function MisEmpresas({ ruta }) {
       headers: { "Access-Control-Allow-Origin": "*" },
     }).then((result) => {
       console.log(result);
+      recargarMisEmpresas();
     }).catch((e) => {
       console.log(e);
+      alert('Error no se pudo borrar la empresa');
     })
-    recargarMisEmpresas();
+    
   }
 
   //Use Effects
